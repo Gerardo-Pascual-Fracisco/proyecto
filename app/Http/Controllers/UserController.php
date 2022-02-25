@@ -37,6 +37,9 @@ class UserController extends Controller
     {
         $user = new User;
        $user->name=$request->input('name');
+       $user->email=$request->input('email');
+       $user->direccion=$request->input('direccion');
+       $user->password=$request->input('password');
        $user->save();
     }
 
