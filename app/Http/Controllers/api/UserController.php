@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\User;
 
-class UserApiController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +15,7 @@ class UserApiController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return $this->showAll($users);
+        return User::all();
     }
 
     /**
@@ -35,8 +36,12 @@ class UserApiController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::create($request->all());
-        return $this->showOne($user, 201);
+        $user = new User;
+       $user->name=$request->input('name');
+       $user->email=$request->input('email');
+       $user->direccion=$request->input('direccion');
+       $user->password=$request->input('password');
+       $user->save();
     }
 
     /**
@@ -45,10 +50,10 @@ class UserApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        $user = User::findOrFail($id);
-        return $this->showOne($user);
+        return $user;
+        return response()->json($user);
     }
 
     /**
@@ -69,9 +74,10 @@ class UserApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $user->update($request->all());
+        return response()->json($user, 200);
     }
 
     /**
@@ -80,8 +86,9 @@ class UserApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return response()->json(null, 204);
     }
 }

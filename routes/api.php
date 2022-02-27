@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\api\UserController;
 use phpDocumentor\Reflection\Types\Resource_;
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +27,4 @@ Route::resource(
 );
 */
 
-Route::resource('user','UserController');
+Route::resource('user','api\UserController');
