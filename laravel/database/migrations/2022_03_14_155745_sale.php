@@ -15,6 +15,10 @@ class Sale extends Migration
     {
         Schema::create('sale', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_service');
+            $table->unsignedBigInteger('id_user');
+            $table->foreign('id_service')->references('id')->on('service');
+            $table->foreign('id_user')->references('id')->on('users');
             $table->string('Total');
         });
     }

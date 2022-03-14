@@ -15,6 +15,10 @@ class SaleDetall extends Migration
     {
         Schema::create('saleDetall', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_service');
+            $table->unsignedBigInteger('id_metodoPago');
+            $table->foreign('id_service')->references('id')->on('service');
+            $table->foreign('id_metodoPago')->references('id')->on('metodoPago');
         });
     }
 

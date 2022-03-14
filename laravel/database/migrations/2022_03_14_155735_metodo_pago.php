@@ -15,7 +15,7 @@ class MetodoPago extends Migration
     {
         Schema::create('metodoPago', function (Blueprint $table) {
             $table->id();
-            $table->string('NombreMetodo');
+            $table->string('nombreMetodo');
         });
     }
 
