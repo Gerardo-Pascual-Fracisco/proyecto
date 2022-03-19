@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class MetodoPago extends Migration
+class Service extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class MetodoPago extends Migration
      */
     public function up()
     {
-        Schema::create('metodoPago', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombreMetodo');
+        Schema::create('service', function (Blueprint $table) {
+            $table->id('id_service');
+            $table->unsignedBigInteger('id_category');
+            $table->string('service_n');
+            $table->foreign('id_category')->references('id_category')->on('category');
         });
     }
 
@@ -26,6 +28,6 @@ class MetodoPago extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('metodoPago');
+        //
     }
 }

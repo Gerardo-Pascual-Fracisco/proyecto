@@ -14,8 +14,8 @@ class typeUsers extends Migration
     public function up()
     {
         Schema::create('typeUsers', function (Blueprint $table) {
-            $table->id();
-            $table->string('typeNombre');
+            $table->id('id_typeUser');
+            $table->string('typeUser');
         });
     }
 
