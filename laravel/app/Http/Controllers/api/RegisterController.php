@@ -16,15 +16,9 @@ $validator = Validator::make($request->all(), [
 'name' => 'required',
 'email' => 'required|email|unique:users',
 'password' => 'required|confirmed',
-'user_type_id' => 'in:' . User::ADMIN . ','
+'id_typeUser' => 'in:' . User::ADMIN . ','
 . User::SUB_ADMIN . ','
-. User::SELLER . ','
-. User::STORER . ','
-. User::ACCOUNTANT . ','
-. User::PRODUCTION . ','
-. User::BILLER . ','
-. User::ADMINISTRATION ,
-'partner' => 'required|bool'
+. User::USER
 ]);
 
 if ($request->hasFile('image')) {
@@ -44,7 +38,7 @@ $user = new User([
 'name' => $request->name,
 'email' => $request->email,
 'password' => bcrypt($request->password),
-'user_type_id'=> $request->type_user,
+'id_typeUser'=> $request->type_user,
 
 ]);
 
