@@ -22,6 +22,9 @@ Route::middleware("auth:sanctum")->get("/user", function (Request $request) {
   });
 
 
-# POST /api/auth/login  || Register
-Route::post('/api/auth/login');
-Route::post('/api/auth/register');
+// Definición de rutas
+Route::post('login', 'api\LoginController@login')
+    ->name('login.login');
+
+Route::post('register', 'api\RegisterController@register')
+    ->name('register.register');    

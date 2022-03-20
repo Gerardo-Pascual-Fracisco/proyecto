@@ -11,46 +11,44 @@ use Illuminate\Support\Facades\Validator;
 class RegisterController extends Controller
 {
     public function register(Request $request)
-{
-$validator = Validator::make($request->all(), [
-'name' => 'required',
-'email' => 'required|email|unique:users',
-'password' => 'required|confirmed',
-'id_typeUser' => 'in:' . User::ADMIN . ','
-. User::SUB_ADMIN . ','
-. User::USER
-]);
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:user',
+            'password' => 'required|confirmed',
+            'id_typeUser' => 'required'
+        ]);
 
-if ($request->hasFile('image')) {
-$rules = [
-'image' => 'mimes:jpg,jpeg,png|max:2048',
-];
+        if ($request->hasFile('image')) {
+            $rules = [
+                'image' => 'mimes:jpg,jpeg,png|max:2048',
+            ];
 
-$this->validate($request, $rules);
-}
+            $this->validate($request, $rules);
+        }
 
-if ($validator->fails()) {
-return $this->errorResponse($validator->errors(), 401);
-}
+        $user = new User([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'id_typeUser' => $request->id_typeUser='1',
+        ]);
 
+        if ($request->hasFile('image')) {
+            $image = file_get_contents($request->file('image')->path());
+            $base64Image = base64_encode($image);
+            $user->image = $this->saveImages($base64Image, 'users', $user->id);
+        }
+        $user->save();
 
-$user = new User([
-'name' => $request->name,
-'email' => $request->email,
-'password' => bcrypt($request->password),
-'id_typeUser'=> $request->type_user,
+        $user->notify(new SignupActivate($user));
 
-]);
-
-if ($request->hasFile('image')) {
-$image = file_get_contents($request->file('image')->path());
-$base64Image = base64_encode($image);
-$user->image = $this->saveImages($base64Image, 'users', $user->id);
-}
-$user->save();
-
-$user->notify(new SignupActivate($user));
-
-return response()->json(['message' => 'Por favor, confirme haciendo clic en el botón verificar usuario que se le envió en su correo electrónico'], 201);
-}
+        return response()->json(
+            [
+                'message' =>
+                    'Por favor, confirme haciendo clic en el botón verificar usuario que se le envió en su correo electrónico',
+            ],
+            201
+        );
+    }
 }
