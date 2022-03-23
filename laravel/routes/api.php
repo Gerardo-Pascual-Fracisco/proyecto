@@ -2,9 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\api\LoginController;
-use App\Http\Controllers\api\RegisterController;
-use phpDocumentor\Reflection\Types\Resource_;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,15 +14,20 @@ use phpDocumentor\Reflection\Types\Resource_;
 |
 */
 
-# GET /api/user
-Route::middleware("auth:sanctum")->get("/user", function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
-  });
+});
 
+Route::group([
+    'prefix' => 'auth'
+], function () {
+    Route::post('login', 'api\AuthController@login');
+    Route::post('signup', 'api\AuthController@signUp');
 
-// Definición de rutas
-Route::post('login', 'api\LoginController@login')
-    ->name('login.login');
-
-Route::post('register', 'api\RegisterController@register')
-    ->name('register.register');    
+    Route::group([
+      'middleware' => 'auth:api'
+    ], function() {
+        Route::get('logout', 'api\AuthController@logout');
+        Route::get('user', 'api\AuthController@user');
+    });
+});
