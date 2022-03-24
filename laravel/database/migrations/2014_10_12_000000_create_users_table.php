@@ -21,6 +21,18 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+/*
+            $table->unsignedBigInteger('id_typeUser');
+            $table->string('name');
+            $table->string('email')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password')->nullable();
+            $table->string('c_password')->nullable();
+            $table->string('address')->nullable();
+            $table->string('image')->nullable();
+            $table->boolean('remember_me')->nullable();
+            $table->foreign('id_typeUser')->references('id_typeUser')->on('typeusers');
+            */
         });
     }
 
