@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\API;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,10 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
+
+Route::resource('category','CategoryController');
+Route::resource('detall','DetallController');
+Route::resource('mp','MethodPaymentController');
+Route::resource('sale','SaleController');
+Route::resource('service','ServiceController');
+Route::resource('typeuser','TypeUserController');
+
+/*
 Route::group([
     'prefix' => 'auth'
 ], function () {
@@ -31,3 +37,4 @@ Route::group([
         Route::get('user', 'api\AuthController@user');
     });
 });
+*/

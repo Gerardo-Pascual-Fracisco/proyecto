@@ -13,11 +13,11 @@ class Service extends Migration
      */
     public function up()
     {
-        Schema::create('service', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id('id_service');
             $table->unsignedBigInteger('id_category');
             $table->string('service_n');
-            $table->foreign('id_category')->references('id_category')->on('category');
+            $table->foreign('id_category')->references('id_category')->on('categories');
         });
     }
 

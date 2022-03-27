@@ -13,7 +13,7 @@ class Sale extends Migration
      */
     public function up()
     {
-        Schema::create('sale', function (Blueprint $table) {
+        Schema::create('sales', function (Blueprint $table) {
             $table->id('id_sale');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('id_mPayment');
@@ -21,8 +21,8 @@ class Sale extends Migration
             $table->string('total_p');
             $table->timestamp('date_sale')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('id_mPayment')->references('id_mPayment')->on('methodPayment');
-            $table->foreign('id_detall')->references('id_detall')->on('detall');
+            $table->foreign('id_mPayment')->references('id_mPayment')->on('methodPayments');
+            $table->foreign('id_detall')->references('id_detall')->on('detalls');
         });
     }
 
