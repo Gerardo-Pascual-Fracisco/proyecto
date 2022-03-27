@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
 class MethodPayment extends Model
 {
   protected $table = "methodPayments";
+  public $timestamps = false;
     static $rules = [
 		'id_mPayment' => 'required',
 		'type_method' => 'required',

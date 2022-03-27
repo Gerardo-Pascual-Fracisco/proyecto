@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Sale extends Model
 {
-    
+    public $timestamps = false;
     static $rules = [
 		'id_sale' => 'required',
 		'user_id' => 'required',

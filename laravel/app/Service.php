@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Service extends Model
 {
-    
+    public $timestamps = false;
     static $rules = [
 		'id_service' => 'required',
 		'id_category' => 'required',
