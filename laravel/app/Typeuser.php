@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class TypeUser extends Model
 {
-    
+  public $timestamps = false;
     static $rules = [
 		'id_typeUser' => 'required',
 		'typeUser' => 'required',

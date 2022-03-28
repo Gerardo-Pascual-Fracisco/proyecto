@@ -22,6 +22,7 @@ Route::resource('detall','DetallController');
 Route::resource('mp','MethodPaymentController');
 Route::resource('sale','SaleController');
 Route::resource('service','ServiceController');
+Route::resource('user','UserController');
 Route::resource('typeuser','TypeUserController');
 
 /*
