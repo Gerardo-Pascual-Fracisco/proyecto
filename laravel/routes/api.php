@@ -17,6 +17,7 @@ use App\Http\Controllers\API;
 
 
 Route::resource('category','CategoryController');
+Route::get('categoryy', 'CategoryController@index');
 Route::resource('detall','DetallController');
 Route::resource('mp','MethodPaymentController');
 Route::resource('sale','SaleController');

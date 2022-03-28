@@ -18,9 +18,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::All();
+    
 
-        return $category;
+        $category = Category::get(); // tambien podemos utilizar paginate()
+        return  json_encode(['Categorias' => $category]); //view('Categorias', ['Categorias' => $Categorias]);
+
+
+
     }
 
     /**

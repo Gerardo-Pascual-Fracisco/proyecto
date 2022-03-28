@@ -19,7 +19,7 @@ class Category extends Model
 //  protected $table = "category";
     static $rules = [
 		'id_category' => 'required',
-		'detall' => 'required',
+		'Name' => 'required',
     ];
 
     protected $perPage = 20;
@@ -29,7 +29,7 @@ class Category extends Model
      *
      * @var array
      */
-    protected $fillable = ['id_category','detall'];
+    protected $fillable = ['id_category','Name'];
 
 
     /**
