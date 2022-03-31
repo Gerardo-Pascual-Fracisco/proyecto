@@ -25,7 +25,7 @@ Route::resource('service','ServiceController');
 Route::resource('user','UserController');
 Route::resource('typeuser','TypeUserController');
 
-/*
+
 Route::group([
     'prefix' => 'auth'
 ], function () {
@@ -39,4 +39,3 @@ Route::group([
         Route::get('user', 'api\AuthController@user');
     });
 });
-*/

@@ -18,9 +18,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = Service::All();
-
-        return $services;
+        $service = Service::find($request);
+        return response()->json($service);
     }
 
     /**
@@ -30,8 +29,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $service = new Service();
-        return view('service.create', compact('service'));
+      //
     }
 
     /**
@@ -42,12 +40,10 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(Service::$rules);
+        $service = new Service();
+        $service->name = $request->name;
 
-        $service = Service::create($request->all());
-
-        return redirect()
-            ->with('success', 'Service created successfully.');
+        $service->save();
     }
 
     /**
@@ -56,11 +52,10 @@ class ServiceController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($request)
     {
-        $service = Service::find($id);
-
-        return view('service.show', compact('service'));
+        $service = Service::find($request);
+        return response()->json($service);
     }
 
     /**
@@ -71,26 +66,23 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        $service = Service::find($id);
-
-        return view('service.edit', compact('service'));
+    //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  Service $service
+     * @param  Service $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Service $service)
+    public function update(Request $request)
     {
-        request()->validate(Service::$rules);
+        $service = Service::findOrFail($request->id);
+        $service->name = $request->name;
 
-        $service->update($request->all());
-
-        return redirect()
-            ->with('success', 'Service updated successfully');
+        $service->save();
+        return $service;
     }
 
     /**
@@ -98,11 +90,9 @@ class ServiceController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy($request)
     {
-        $service = Service::find($id)->delete();
-
-        return redirect()
-            ->with('success', 'Service deleted successfully');
+        $service = Service::destroy($request->id);
+        return $service;
     }
 }

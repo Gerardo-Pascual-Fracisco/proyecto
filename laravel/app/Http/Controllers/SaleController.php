@@ -18,9 +18,8 @@ class SaleController extends Controller
      */
     public function index()
     {
-        $sales = Sale::All();
-
-        return $sales;
+        $sale = Sale::find($request);
+        return response()->json($sale);
     }
 
     /**
@@ -30,8 +29,7 @@ class SaleController extends Controller
      */
     public function create()
     {
-        $sale = new Sale();
-        return view('sale.create', compact('sale'));
+      //
     }
 
     /**
@@ -42,12 +40,10 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(Sale::$rules);
+        $sale = new Sale();
+        $sale->name = $request->name;
 
-        $sale = Sale::create($request->all());
-
-        return redirect()
-            ->with('success', 'Sale created successfully.');
+        $sale->save();
     }
 
     /**
@@ -56,11 +52,10 @@ class SaleController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($request)
     {
-        $sale = Sale::find($id);
-
-        return view('sale.show', compact('sale'));
+        $sale = Sale::find($request);
+        return response()->json($sale);
     }
 
     /**
@@ -71,26 +66,23 @@ class SaleController extends Controller
      */
     public function edit($id)
     {
-        $sale = Sale::find($id);
-
-        return view('sale.edit', compact('sale'));
+    //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  Sale $sale
+     * @param  Sale $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sale $sale)
+    public function update(Request $request)
     {
-        request()->validate(Sale::$rules);
+        $sale = Sale::findOrFail($request->id);
+        $sale->name = $request->name;
 
-        $sale->update($request->all());
-
-        return redirect()
-            ->with('success', 'Sale updated successfully');
+        $sale->save();
+        return $sale;
     }
 
     /**
@@ -98,11 +90,9 @@ class SaleController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy($request)
     {
-        $sale = Sale::find($id)->delete();
-
-        return redirect()
-            ->with('success', 'Sale deleted successfully');
+        $sale = Sale::destroy($request->id);
+        return $sale;
     }
 }

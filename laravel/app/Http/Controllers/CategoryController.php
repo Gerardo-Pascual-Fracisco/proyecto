@@ -18,13 +18,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-    
+        $category = Category::all();
 
-        $category = Category::get(); // tambien podemos utilizar paginate()
-        return  json_encode(['Categorias' => $category]); //view('Categorias', ['Categorias' => $Categorias]);
-
-
-
+        return response()->json($category);
     }
 
     /**
@@ -34,8 +30,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $category = new Category();
-        return view('category.create', compact('category'));
+      //
     }
 
     /**
@@ -46,12 +41,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(Category::$rules);
+        $category = new Category();
+        $category->name = $request->name;
 
-        $category = Category::create($request->all());
-
-        return redirect()
-            ->with('success', 'Category created successfully.');
+        $category->save();
     }
 
     /**
@@ -60,11 +53,10 @@ class CategoryController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($request)
     {
-        $category = Category::find($id);
-
-        return view('category.show', compact('category'));
+        $category = Category::find($request);
+        return response()->json($category);
     }
 
     /**
@@ -75,26 +67,23 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
-
-        return view('category.edit', compact('category'));
+    //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  Category $category
+     * @param  Category $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request)
     {
-        request()->validate(Category::$rules);
+        $category = Category::findOrFail($request->id);
+        $category->name = $request->name;
 
-        $category->update($request->all());
-
-        return redirect()
-            ->with('success', 'Category updated successfully');
+        $category->save();
+        return $category;
     }
 
     /**
@@ -102,10 +91,9 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy($request)
     {
-        $category = Category::find($id)->delete();
-
-        return redirect()->with('success', 'Category deleted successfully');
+        $category = Category::destroy($request->id);
+        return $category;
     }
 }

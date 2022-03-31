@@ -18,9 +18,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate();
-
-        return $users;
+        $user = User::find($request);
+        return response()->json($user);
     }
 
     /**
@@ -30,8 +29,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $user = new User();
-        return view('user.create', compact('user'));
+      //
     }
 
     /**
@@ -42,12 +40,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(User::$rules);
+        $user = new User();
+        $user->name = $request->name;
 
-        $user = User::create($request->all());
-
-        return redirect()
-            ->with('success', 'User created successfully.');
+        $user->save();
     }
 
     /**
@@ -56,11 +52,10 @@ class UserController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($request)
     {
-        $user = User::find($id);
-
-        return view('user.show', compact('user'));
+        $user = User::find($request);
+        return response()->json($user);
     }
 
     /**
@@ -71,9 +66,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-
-        return view('user.edit', compact('user'));
+    //
     }
 
     /**
@@ -83,14 +76,13 @@ class UserController extends Controller
      * @param  User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        request()->validate(User::$rules);
+        $user = User::findOrFail($request->id);
+        $user->name = $request->name;
 
-        $user->update($request->all());
-
-        return redirect()
-            ->with('success', 'User updated successfully');
+        $user->save();
+        return $user;
     }
 
     /**
@@ -98,11 +90,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy($request)
     {
-        $user = User::find($id)->delete();
-
-        return redirect()
-            ->with('success', 'User deleted successfully');
+        $user = User::destroy($request->id);
+        return $user;
     }
 }

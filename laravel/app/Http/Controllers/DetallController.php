@@ -18,9 +18,8 @@ class DetallController extends Controller
      */
     public function index()
     {
-        $detalls = Detall::All();
-
-        return $detall;
+        $detall = Detall::find($request);
+        return response()->json($detall);
     }
 
     /**
@@ -30,8 +29,7 @@ class DetallController extends Controller
      */
     public function create()
     {
-        $detall = new Detall();
-        return view('detall.create', compact('detall'));
+      //
     }
 
     /**
@@ -42,12 +40,10 @@ class DetallController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(Detall::$rules);
+        $detall = new Detall();
+        $detall->name = $request->name;
 
-        $detall = Detall::create($request->all());
-
-        return redirect()
-            ->with('success', 'Detall created successfully.');
+        $detall->save();
     }
 
     /**
@@ -56,11 +52,10 @@ class DetallController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($request)
     {
-        $detall = Detall::find($id);
-
-        return view('detall.show', compact('detall'));
+        $detall = Detall::find($request);
+        return response()->json($detall);
     }
 
     /**
@@ -71,26 +66,23 @@ class DetallController extends Controller
      */
     public function edit($id)
     {
-        $detall = Detall::find($id);
-
-        return view('detall.edit', compact('detall'));
+    //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  Detall $detall
+     * @param  Detall $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Detall $detall)
+    public function update(Request $request)
     {
-        request()->validate(Detall::$rules);
+        $detall = Detall::findOrFail($request->id);
+        $detall->name = $request->name;
 
-        $detall->update($request->all());
-
-        return redirect()
-            ->with('success', 'Detall updated successfully');
+        $detall->save();
+        return $detall;
     }
 
     /**
@@ -98,11 +90,9 @@ class DetallController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy($request)
     {
-        $detall = Detall::find($id)->delete();
-
-        return redirect()
-            ->with('success', 'Detall deleted successfully');
+        $detall = Detall::destroy($request->id);
+        return $detall;
     }
 }

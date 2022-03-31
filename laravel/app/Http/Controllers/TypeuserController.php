@@ -18,9 +18,8 @@ class TypeUserController extends Controller
      */
     public function index()
     {
-        $typeUsers = TypeUser::All();
-
-        return $typeUsers;
+        $typeUser = TypeUser::find($request);
+        return response()->json($typeUser);
     }
 
     /**
@@ -30,8 +29,7 @@ class TypeUserController extends Controller
      */
     public function create()
     {
-        $typeUser = new TypeUser();
-        return view('type-user.create', compact('typeUser'));
+      //
     }
 
     /**
@@ -42,12 +40,10 @@ class TypeUserController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(TypeUser::$rules);
+        $typeUser = new TypeUser();
+        $typeUser->name = $request->name;
 
-        $typeUser = TypeUser::create($request->all());
-
-        return redirect()
-            ->with('success', 'TypeUser created successfully.');
+        $typeUser->save();
     }
 
     /**
@@ -56,11 +52,10 @@ class TypeUserController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($request)
     {
-        $typeUser = TypeUser::find($id);
-
-        return view('type-user.show', compact('typeUser'));
+        $typeUser = TypeUser::find($request);
+        return response()->json($typeUser);
     }
 
     /**
@@ -71,26 +66,23 @@ class TypeUserController extends Controller
      */
     public function edit($id)
     {
-        $typeUser = TypeUser::find($id);
-
-        return view('type-user.edit', compact('typeUser'));
+    //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  TypeUser $typeUser
+     * @param  TypeUser $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TypeUser $typeUser)
+    public function update(Request $request)
     {
-        request()->validate(TypeUser::$rules);
+        $typeUser = TypeUser::findOrFail($request->id);
+        $typeUser->name = $request->name;
 
-        $typeUser->update($request->all());
-
-        return redirect()
-            ->with('success', 'TypeUser updated successfully');
+        $typeUser->save();
+        return $typeUser;
     }
 
     /**
@@ -98,11 +90,9 @@ class TypeUserController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy($request)
     {
-        $typeUser = TypeUser::find($id)->delete();
-
-        return redirect()
-            ->with('success', 'TypeUser deleted successfully');
+        $typeUser = TypeUser::destroy($request->id);
+        return $typeUser;
     }
 }

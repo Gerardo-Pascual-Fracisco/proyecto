@@ -18,9 +18,8 @@ class MethodPaymentController extends Controller
      */
     public function index()
     {
-        $methodPayments = MethodPayment::All();
-
-        return $methodPayments;
+        $methodPayments = MethodPayments::find($request);
+        return response()->json($methodPayments);
     }
 
     /**
@@ -30,8 +29,7 @@ class MethodPaymentController extends Controller
      */
     public function create()
     {
-        $methodPayment = new MethodPayment();
-        return view('method-payment.create', compact('methodPayment'));
+      //
     }
 
     /**
@@ -42,12 +40,10 @@ class MethodPaymentController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(MethodPayment::$rules);
+        $methodPayments = new MethodPayments();
+        $methodPayments->name = $request->name;
 
-        $methodPayment = MethodPayment::create($request->all());
-
-        return redirect()
-            ->with('success', 'MethodPayment created successfully.');
+        $methodPayments->save();
     }
 
     /**
@@ -56,11 +52,10 @@ class MethodPaymentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($request)
     {
-        $methodPayment = MethodPayment::find($id);
-
-        return view('method-payment.show', compact('methodPayment'));
+        $methodPayments = MethodPayments::find($request);
+        return response()->json($methodPayments);
     }
 
     /**
@@ -71,26 +66,23 @@ class MethodPaymentController extends Controller
      */
     public function edit($id)
     {
-        $methodPayment = MethodPayment::find($id);
-
-        return view('method-payment.edit', compact('methodPayment'));
+    //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  MethodPayment $methodPayment
+     * @param  MethodPayments $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MethodPayment $methodPayment)
+    public function update(Request $request)
     {
-        request()->validate(MethodPayment::$rules);
+        $methodPayments = MethodPayments::findOrFail($request->id);
+        $methodPayments->name = $request->name;
 
-        $methodPayment->update($request->all());
-
-        return redirect()
-            ->with('success', 'MethodPayment updated successfully');
+        $methodPayments->save();
+        return $methodPayments;
     }
 
     /**
@@ -98,11 +90,9 @@ class MethodPaymentController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy($request)
     {
-        $methodPayment = MethodPayment::find($id)->delete();
-
-        return redirect()
-            ->with('success', 'MethodPayment deleted successfully');
+        $methodPayments = MethodPayments::destroy($request->id);
+        return $methodPayments;
     }
 }
