@@ -41,10 +41,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = new Category();
-        $category->name = $request->name;
 
+        $category = new Category;
+        $data = $request->json()->all();
+        $Name = $data['Name'];
+        $category->Name=$Name;
         $category->save();
+        return json_encode([ "msg"=>"categoria agregada"]); // return
+    
+
+
     }
 
     /**
