@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class UserController
@@ -18,8 +19,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::find($request);
+        $user = User::all();
         return response()->json($user);
+        
     }
 
     /**
@@ -52,10 +54,14 @@ class UserController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($request)
+    public function show($id)
     {
-        $user = User::find($request);
-        return response()->json($user);
+      
+        $users = DB::table('users')
+                ->where('name','=',$id)
+                ->get();
+        return response()->json(['usuario' => $users],200);
+
     }
 
     /**

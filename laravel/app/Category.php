@@ -16,12 +16,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Category extends Model
 {
-//  protected $table = "category";
+  protected $table = "category";
+  protected $primaryKey = 'id_category';
 // const UPDATED_AT = null;
 public $timestamps = false;
     static $rules = [
 		'id_category' => 'required',
-		'Name' => 'required',
+		'name' => 'required',
     ];
 
     protected $perPage = 20;
@@ -31,7 +32,7 @@ public $timestamps = false;
      *
      * @var array
      */
-    protected $fillable = ['id_category','Name'];
+    protected $fillable = ['id_category','name'];
 
 
     /**

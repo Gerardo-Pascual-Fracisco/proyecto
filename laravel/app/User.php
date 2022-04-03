@@ -29,7 +29,7 @@ class User extends Authenticatable
     
     public function sales()
     {
-        return $this->hasMany('App\Sale', 'user_id', 'id');
+        return $this->hasMany('App\Sale', 'id', 'id');
     }
 
 }

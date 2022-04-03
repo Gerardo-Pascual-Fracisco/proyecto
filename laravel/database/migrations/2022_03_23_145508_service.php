@@ -17,7 +17,7 @@ class Service extends Migration
             $table->id('id_service');
             $table->unsignedBigInteger('id_category');
             $table->string('service_n');
-            $table->foreign('id_category')->references('id_category')->on('categories');
+            $table->foreign('id_category')->references('id_category')->on('category');
         });
     }
 

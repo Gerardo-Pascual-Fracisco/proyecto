@@ -18,8 +18,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::all();
-
+          $category = Category::all();
         return response()->json($category);
     }
 
@@ -44,8 +43,8 @@ class CategoryController extends Controller
 
         $category = new Category;
         $data = $request->json()->all();
-        $Name = $data['Name'];
-        $category->Name=$Name;
+        $name = $data['name'];
+        $category->name=$name;
         $category->save();
         return json_encode([ "msg"=>"categoria agregada"]); // return
     
@@ -59,10 +58,11 @@ class CategoryController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($request)
+    public function show(Request $request)
     {
         $category = Category::find($request);
         return response()->json($category);
+    
     }
 
     /**
