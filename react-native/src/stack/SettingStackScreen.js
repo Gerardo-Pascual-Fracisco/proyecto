@@ -1,11 +1,11 @@
 import React from 'react';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Setting from "../screens/setting/Setting";
-import Profile_C from "../screens/setting/Profile_C";
-import Mode from '../screens/setting/mode';
-import Attention from '../screens/setting/attention';
-import Report from '../screens/setting/report ';
+import Setting from "../screens/s-conf/Setting";
+import Profile_C from "../screens/s-conf/Profile_C";
+import Mode from '../screens/s-conf/mode';
+import Attention from '../screens/s-conf/attention';
+import Report from '../screens/s-conf/report ';
 
 const SettingStackNavigator = () => {
     const SettingStack = createNativeStackNavigator();

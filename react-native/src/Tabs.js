@@ -22,7 +22,7 @@ const Tabs = () => {
                     //headerShown: false,
                 }}>
 
-                <Tab.Screen name="Home"
+                <Tab.Screen name="Inicio"
                     component={HomeStackNavigator}
                     options={{
                         tabBarLabel: 'Inicio',
@@ -31,7 +31,7 @@ const Tabs = () => {
                         ),
                     }}
                 />                
-                <Tab.Screen name="Search"
+                <Tab.Screen name="Busqueda"
                     component={HomeStackNavigator}
                     options={{
                         tabBarLabel: 'Busqueda',
@@ -40,7 +40,7 @@ const Tabs = () => {
                         ),
                     }}
                 />
-                <Tab.Screen name="MyServices"
+                <Tab.Screen name="Gestor de Servicios"
                     component={HomeStackNavigator}
                     options={{
                         tabBarLabel: 'Servicios',
@@ -49,7 +49,7 @@ const Tabs = () => {
                         ),
                     }}
                 />
-                <Tab.Screen name="Setting"
+                <Tab.Screen name="Configuraciones"
                     component={SettingStackNavigator}
                     options={{
                         tabBarLabel: 'Configuracion',

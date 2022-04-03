@@ -6,11 +6,11 @@ import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 
-import Home from "../screens/home/Home";
-import Servicios from "../screens/service/Servicios";
-import MyServices  from "../screens/search/Search";
-import Setting from "../screens/setting/Setting";
-import Perfil from "../screens/setting/Profile_C";
+import Home from "../screens/s_hom/Home";
+import Servicios from "../screens/s-serv/Servicios";
+import MyServices  from "../screens/s_search/Search";
+import Setting from "../screens/s-conf/Setting";
+import Perfil from "../screens/s-conf/Profile_C";
 
 
 const HomeStackNavigator = createNativeStackNavigator();
