@@ -1,7 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, FlatList, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, StatusBar, FlatList, Text, View, SafeAreaView, ScrollView, Image, } from "react-native";
+import styled from 'styled-components'
 import axios from 'axios'
+
 const URL = 'http://localhost:8000/api/user/Leonora Schuppe'
 
 function Profile_C() {
@@ -25,8 +26,40 @@ function Profile_C() {
   }
 
 
-  return (
-    <View style={styles.container}>
+
+   
+
+
+
+return (
+  <SafeAreaView style={styles.container}>
+    <ScrollView showsHorizontalScrollIndicato={false} showsVerticalScrollIndicator={false}>
+      <View>
+        <table>
+          <tr>
+            <td>
+              <View  style={styles.Image}>
+              <Image
+                  style={styles.tinyLogo}
+                  source={{ uri: "http://placekitten.com/100/100" }}
+                />
+              </View>
+            </td>
+            <td>
+              <ViewA1 style={{paddingRight: 100,}}>
+                <text>Nombre:</text>
+                <td><InputA1></InputA1></td>
+              </ViewA1>
+              <ViewA1>
+                <text>Correo:</text>
+                <td><InputA1></InputA1></td>
+              </ViewA1>
+            </td>
+          </tr>
+        </table>
+      </View>
+
+      <View style={styles.container}>
       <View>
         <Text>Usuario</Text>
       </View>
@@ -41,37 +74,111 @@ function Profile_C() {
         )}
         keyExtractor={item => item.id.toString()}
       />
-
-
     </View>
-  );
+
+      <ViewA2>
+        <text>Direccion</text>
+        <td><InputA2></InputA2></td>
+      </ViewA2>
+      <ViewA2>
+        <text>Redes Sociales</text>
+        <td><InputA2></InputA2></td>
+      </ViewA2>
+      <ViewA2>
+        <text>Metodo de Pago</text>
+        <td><InputA2></InputA2></td>
+      </ViewA2>
+
+      <ViewA2>
+        <ButtonA1>cambiar Contraseña</ButtonA1>
+      </ViewA2>
+    </ScrollView>
+  </SafeAreaView>
+);
+  
 }
+
+const ViewA2 = styled.div`
+  background-color: write;
+  color: black;
+  border-color: orange;
+  font-size: 20px;
+  border-radius: 5px;
+  margin: 10px 0px;
+  text-align: left;
+`;
+const InputA2 = styled.input`
+
+  background-color: whrite;
+  color: black;
+  border-color: purple;
+  font-size: 20px;
+  padding: 25% 30%;
+  border-radius: 5px;
+  margin: 10px 0px;
+  text-align: left;
+`;
+
+const ViewA1 = styled.div`
+
+  background-color: write;
+  color: black;
+  border-color: orange;
+  font-size: 15px;
+  border-radius: 5px;
+  text-align: left;
+`;
+
+const InputA1 = styled.input`
+
+  background-color: whrite;
+  color: black;
+  border-color: orange;
+  padding: 5% 30%;
+  border-radius: 5px;
+  margin: 10px 0px;
+  text-align: left;
+`;
+
+const ButtonA1 = styled.button`
+
+  background-color: whrite;
+  color: black;
+  border-color: black;
+  font-size: 20px;
+  padding: 5px 5px;
+  border-radius: 5px;
+  margin: 10px 0px;
+  cursor: pointer;
+  text-align: left;
+  
+`;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 10,
+    paddingTop: 15,
+    paddingLeft: 20,
+    paddingRight: 15,
+  },
+  tinyLogo: {
+    width: 100,
+    height: 100,
+  },
+  Image: {
+    paddingLeft: 0,
   },
   body: {
     marginTop: 10,
-    flexDirection: 'row',
-  },
-  box: {
-    flex: 1,
-    height: 50,
-    width: 160,
+    flexDirection: "row",
   },
   textList: {
     fontSize: 25,
-    color: 'blue',
+    color: "blue",
   },
 
   title: {
     fontSize: 25,
-    color: 'blue',
-  },
-  image: {
-    width: 136,
-    height: 108,
+    color: "blue",
   },
 });
 export default Profile_C;

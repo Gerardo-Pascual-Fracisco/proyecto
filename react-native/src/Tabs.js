@@ -20,6 +20,7 @@ const Tabs = () => {
                     headerTintColor: "white",
                     headerBackTitle: "Back",
                     //headerShown: false,
+                    tabBarActiveTintColor: 'purple',
                 }}>
 
                 <Tab.Screen name="Inicio"
