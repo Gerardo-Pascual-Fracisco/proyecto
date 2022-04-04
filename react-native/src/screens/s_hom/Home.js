@@ -2,11 +2,11 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, FlatList, Text, View, SafeAreaView, ScrollView } from 'react-native';
 import axios from 'axios'
-const URL = 'http://localhost:8000/api/category'
+const URL = 'http://192.168.113.27:8000/api/category'
 
 import Card from '../../components/Card';
 
-function Home() {
+const Home = () => {
 
   const [data, setData] = useState([]);
 

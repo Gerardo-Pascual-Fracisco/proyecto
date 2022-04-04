@@ -1,7 +1,7 @@
-import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
-import styled from 'styled-components'
-import { useNavigation } from '@react-navigation/native'
+import React from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import styled from 'styled-components';
+import { useNavigation } from '@react-navigation/native';
 
 function sayHello() {}
 
@@ -44,7 +44,7 @@ const Button = styled.button`
   margin: 10px 0px;
   cursor: pointer;
   text-align: left;
-`
+`;
 
 const ButtonGroup = styled.div`
   display: flex;
