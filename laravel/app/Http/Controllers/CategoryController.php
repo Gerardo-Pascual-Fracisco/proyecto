@@ -97,9 +97,10 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy($request)
-    {
-        $category = Category::destroy($request->id);
-        return $category;
-    }
+    public function destroy($id_category){
+
+        Category::destroy($id_category);
+
+        return response()->json(["mensaje" => "Categoria eliminada"], 201);
+}
 }

@@ -15,9 +15,11 @@ class Service extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id('id_service');
-            $table->unsignedBigInteger('id_category');
+            $table->unsignedBigInteger('id_category')->nullable();
             $table->string('service_n');
-            $table->foreign('id_category')->references('id_category')->on('category');
+            $table->foreign('id_category')
+            ->references('id_category')->on('category')
+            ->onDelete('set null')->onUpdate('cascade');
         });
     }
 
