@@ -18,7 +18,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $service = Service::find($request);
+        $service = Service::all();
         return response()->json($service);
     }
 
@@ -52,7 +52,7 @@ class ServiceController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($request)
+    public function show(Request $request)
     {
         $service = Service::find($request);
         return response()->json($service);
