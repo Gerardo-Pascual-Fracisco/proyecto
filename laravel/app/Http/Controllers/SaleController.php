@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Sale;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
 
 /**
  * Class SaleController
  * @package App\Http\Controllers
  */
-class SaleController extends Controller
+class SaleController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +20,7 @@ class SaleController extends Controller
     public function index()
     {
         $sale = Sale::find($request);
-        return response()->json($sale);
+        return $this->showAll($sale);
     }
 
     /**
@@ -44,6 +45,7 @@ class SaleController extends Controller
         $sale->name = $request->name;
 
         $sale->save();
+        return $this->showAll($sale,201);
     }
 
     /**
@@ -82,7 +84,7 @@ class SaleController extends Controller
         $sale->name = $request->name;
 
         $sale->save();
-        return $sale;
+        return $this->showAll($sale);
     }
 
     /**
@@ -93,6 +95,6 @@ class SaleController extends Controller
     public function destroy($request)
     {
         $sale = Sale::destroy($request->id);
-        return $sale;
+        return $this->showAll($sale,200);
     }
 }

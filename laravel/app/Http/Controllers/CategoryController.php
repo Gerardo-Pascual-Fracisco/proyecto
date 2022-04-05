@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
 
 /**
  * Class CategoryController
  * @package App\Http\Controllers
  */
-class CategoryController extends Controller
+class CategoryController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +20,7 @@ class CategoryController extends Controller
     public function index()
     {
           $category = Category::all();
-        return response()->json($category);
+          return $this->showAll($category);
     }
 
     /**
@@ -47,9 +48,7 @@ class CategoryController extends Controller
         $category->name=$name;
         $category->save();
         return json_encode([ "msg"=>"categoria agregada"]); // return
-    
-
-
+        //return $this->showAll($category, 201);
     }
 
     /**
@@ -62,6 +61,7 @@ class CategoryController extends Controller
     {
         $category = Category::find($request);
         return response()->json($category);
+        //return $this->showAll($category);
     
     }
 
@@ -89,7 +89,7 @@ class CategoryController extends Controller
         $category->name = $request->name;
 
         $category->save();
-        return $category;
+        return $this->showAll($category);
     }
 
     /**
@@ -100,6 +100,7 @@ class CategoryController extends Controller
     public function destroy($id_category){
 
         Category::destroy($id_category);
+        //return $this->showAll($category,200);
 
         return response()->json(["mensaje" => "Categoria eliminada"], 201);
 }

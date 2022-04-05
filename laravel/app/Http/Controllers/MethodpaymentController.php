@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\MethodPayment;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
 
 /**
  * Class MethodPaymentController
  * @package App\Http\Controllers
  */
-class MethodPaymentController extends Controller
+class MethodPaymentController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +20,7 @@ class MethodPaymentController extends Controller
     public function index()
     {
         $methodPayments = MethodPayments::find($request);
-        return response()->json($methodPayments);
+        return $this->showAll($methodPayments);
     }
 
     /**
@@ -44,6 +45,7 @@ class MethodPaymentController extends Controller
         $methodPayments->name = $request->name;
 
         $methodPayments->save();
+        return $this->showAll($methodPayments,201);
     }
 
     /**
@@ -82,7 +84,7 @@ class MethodPaymentController extends Controller
         $methodPayments->name = $request->name;
 
         $methodPayments->save();
-        return $methodPayments;
+        return $this->showAll($methodPayments);
     }
 
     /**
@@ -93,6 +95,6 @@ class MethodPaymentController extends Controller
     public function destroy($request)
     {
         $methodPayments = MethodPayments::destroy($request->id);
-        return $methodPayments;
+        return $this->showAll($methodPayments,200);
     }
 }

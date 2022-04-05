@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\TypeUser;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
 
 /**
  * Class TypeUserController
  * @package App\Http\Controllers
  */
-class TypeUserController extends Controller
+class TypeUserController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +19,8 @@ class TypeUserController extends Controller
      */
     public function index()
     {
-        $typeUser = TypeUser::find($request);
-        return response()->json($typeUser);
+        $typeUser = User::all();
+        return $this->showAll($typeUser);
     }
 
     /**
@@ -44,6 +45,7 @@ class TypeUserController extends Controller
         $typeUser->name = $request->name;
 
         $typeUser->save();
+        return $this->showOne($typeUser,201);
     }
 
     /**
@@ -82,7 +84,7 @@ class TypeUserController extends Controller
         $typeUser->name = $request->name;
 
         $typeUser->save();
-        return $typeUser;
+        return $this->showOne($typeUser);
     }
 
     /**
@@ -93,6 +95,6 @@ class TypeUserController extends Controller
     public function destroy($request)
     {
         $typeUser = TypeUser::destroy($request->id);
-        return $typeUser;
+        return $this->showOne($typeUser,200);
     }
 }

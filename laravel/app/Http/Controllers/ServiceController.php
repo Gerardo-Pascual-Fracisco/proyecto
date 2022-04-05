@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Service;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
 
 /**
  * Class ServiceController
  * @package App\Http\Controllers
  */
-class ServiceController extends Controller
+class ServiceController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +20,7 @@ class ServiceController extends Controller
     public function index()
     {
         $service = Service::all();
-        return response()->json($service);
+        return $this->showAll($service);
     }
 
     /**
@@ -44,6 +45,7 @@ class ServiceController extends Controller
         $service->name = $request->name;
 
         $service->save();
+        return $this->showAll($service,201);
     }
 
     /**
@@ -82,7 +84,7 @@ class ServiceController extends Controller
         $service->name = $request->name;
 
         $service->save();
-        return $service;
+        return $this->showAll($service);
     }
 
     /**
@@ -93,6 +95,6 @@ class ServiceController extends Controller
     public function destroy($request)
     {
         $service = Service::destroy($request->id);
-        return $service;
+        return $this->showAll($service,200);
     }
 }

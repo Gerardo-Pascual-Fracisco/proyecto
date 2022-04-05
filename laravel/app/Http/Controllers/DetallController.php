@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Detall;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
 
 /**
  * Class DetallController
  * @package App\Http\Controllers
  */
-class DetallController extends Controller
+class DetallController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +20,7 @@ class DetallController extends Controller
     public function index()
     {
         $detall = Detall::find($request);
-        return response()->json($detall);
+        return $this->showAll($detall);
     }
 
     /**
@@ -44,6 +45,7 @@ class DetallController extends Controller
         $detall->name = $request->name;
 
         $detall->save();
+        return $this->showAll($detall, 201);
     }
 
     /**
@@ -55,7 +57,7 @@ class DetallController extends Controller
     public function show($request)
     {
         $detall = Detall::find($request);
-        return response()->json($detall);
+        return $this->showAll($detall);
     }
 
     /**
@@ -82,7 +84,7 @@ class DetallController extends Controller
         $detall->name = $request->name;
 
         $detall->save();
-        return $detall;
+        return $this->showAll($detall);
     }
 
     /**
@@ -93,6 +95,6 @@ class DetallController extends Controller
     public function destroy($request)
     {
         $detall = Detall::destroy($request->id);
-        return $detall;
+        return $this->showAll($detall,200);
     }
 }
