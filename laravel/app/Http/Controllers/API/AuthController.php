@@ -69,14 +69,15 @@ class AuthController extends Controller
     /**
      * Cierre de sesión (anular el token)
      */
-    public function logout(Request $request)
-    {
-        $request->user()->token()->revoke();
-
-        return response()->json([
-            'message' => 'Successfully logged out'
-        ]);
+    public function logout(Request $request) {
+        if ($request->user()) { 
+            $request->user()->tokens()->delete();
+        }
+    
+        return response()->json(['message' => 'Вы вышли из системы'], 200);
     }
+
+ 
 
     /**
      * Obtener el objeto User como json

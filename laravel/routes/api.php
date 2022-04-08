@@ -32,9 +32,10 @@ Route::group([
     Route::post('signup', 'api\AuthController@signUp');
 
     Route::group([
-      'middleware' => 'auth:api'
+      'middleware' => 'api'
     ], function() {
         Route::get('logout', 'api\AuthController@logout');
         Route::get('user', 'api\AuthController@user');
     });
 });
+Route::get('logout', 'api\AuthController@logout');
