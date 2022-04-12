@@ -32,7 +32,7 @@ public $timestamps = false;
      *
      * @var array
      */
-    protected $fillable = ['id_category','name'];
+    protected $fillable = ['id_category','name','foto'];
 
 
     /**

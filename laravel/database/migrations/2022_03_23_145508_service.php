@@ -17,6 +17,7 @@ class Service extends Migration
             $table->id('id_service');
             $table->unsignedBigInteger('id_category')->nullable();
             $table->string('service_n');
+            $table->string('foto');
             $table->foreign('id_category')
             ->references('id_category')->on('category')
             ->onDelete('set null')->onUpdate('cascade');
