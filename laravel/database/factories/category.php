@@ -9,7 +9,7 @@ use Faker\Generator as Faker;
 $factory->define(App\Category::class, function (Faker $faker) {
     return [
         'name' => $faker->jobTitle,
-        'foto' => $faker->imageUrl(136,108)
+        'foto' => $faker->numerify('https://picsum.photos/id/###/136/108'),
 
     ];
 });

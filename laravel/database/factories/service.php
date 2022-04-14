@@ -11,7 +11,7 @@ $factory->define(Service::class, function (Faker $faker) {
     return [
 		'id_category' => $faker->numberBetween($min = 1, $max = 3), // 8567,
 		'service_n' => $faker->bs,
-    'foto' => $faker->imageUrl(136,108)
+    'foto' => $faker->numerify('https://picsum.photos/id/###/136/108'),
 
     ];
 });
