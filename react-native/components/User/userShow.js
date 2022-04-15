@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FlatList, RefreshControl } from "react-native";
-import { getUser } from '../api/api_user'
-import EditProfileScreen from "../screens/EditProfileScreen";
+import { getUser } from '../../src/api/api_user'
+import EditProfileScreen from "../../src/screens/EditProfileScreen";
 
 
 const userShow = () => {
