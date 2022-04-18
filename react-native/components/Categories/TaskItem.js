@@ -5,11 +5,12 @@ import { useNavigation } from "@react-navigation/native";
 const TaskItem = ({ task}) => {
   const navigation = useNavigation();
   
+        /*onPress={() => navigation.navigate("My services", { id: task.id_category,name: task.name })}*/
 
   return (
     <View style={styles.itemContainer}>
       <TouchableOpacity
-        onPress={() => navigation.navigate("CategoryServices", )}
+        onPress={() => navigation.navigate("My services", )}
         >
 
         <Text style={styles.itemTitle}>{task.name}</Text>
@@ -19,7 +20,7 @@ const TaskItem = ({ task}) => {
 
       <TouchableOpacity
         style={{ backgroundColor: "#ee5253", padding: 7, borderRadius: 5 }}
-        onPress={() => navigation.navigate("CategoryServices")}
+        onPress={() => navigation.navigate("My services")}
       >
 
 
