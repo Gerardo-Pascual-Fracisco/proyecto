@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Service
  *
- * @property $id_service
+ * @property $service_id
  * @property $id_category
  * @property $service_n
  *
@@ -16,13 +16,19 @@ use Illuminate\Database\Eloquent\Model;
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
+
+
 class Service extends Model
+
 {
+    protected $table = "services";
+protected $primaryKey = 'service_id';
+
     public $timestamps = false;
     static $rules = [
-		'id_service' => 'required',
+		'service_id' => 'required',
 		'id_category' => 'required',
-		'service_n' => 'required',
+		'service_n' => 'required'
     ];
 
     protected $perPage = 20;
@@ -32,15 +38,15 @@ class Service extends Model
      *
      * @var array
      */
-    protected $fillable = ['id_service','id_category','service_n'];
+    protected $fillable = ['service_id','id_category','service_n'];
 
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function category()
+    public function categoria()
     {
-        return $this->hasOne('App\Category', 'id_category', 'id_category');
+        return $this->belongsTo('App\Category');
     }
     
     /**
@@ -48,8 +54,16 @@ class Service extends Model
      */
     public function detalls()
     {
-        return $this->hasMany('App\Detall', 'id_service', 'id_service');
+        return $this->hasMany('App\Detall', 'service_id', 'service_id');
     }
     
+   
+  
+   
 
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
 }

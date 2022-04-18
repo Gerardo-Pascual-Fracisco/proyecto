@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Service;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
+use App\Category;
+use DB;
 
 /**
  * Class ServiceController
@@ -97,4 +99,22 @@ class ServiceController extends ApiController
         $service = Service::destroy($request->id);
         return $this->showAll($service,200);
     }
+
+
+  
+
+
+
+    public function showUser($id_service){//criterio de busqueda
+
+
+        $consulta = Service::with('users')->get();
+    
+    
+        return response()->json($consulta[$id_service-1], 201);
+        
+
+    
+    }
+
 }

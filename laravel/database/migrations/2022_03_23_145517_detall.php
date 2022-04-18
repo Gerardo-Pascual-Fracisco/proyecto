@@ -14,12 +14,12 @@ class Detall extends Migration
     public function up()
     {
         Schema::create('detalls', function (Blueprint $table) {
-            $table->id('id_detall');
-            $table->unsignedBigInteger('id_service');
+            $table->bigIncrements('id_detall');
+            $table->unsignedBigInteger('service_id');
             $table->string('detall');
             $table->string('price');
             $table->timestamps();
-            $table->foreign('id_service')->references('id_service')->on('services');
+            $table->foreign('service_id')->references('service_id')->on('services');
         });
     }
 

@@ -15,7 +15,6 @@ use App\Http\Controllers\API;
 */
 
 
-
 Route::resource('category','CategoryController');
 Route::resource('detall','DetallController');
 Route::resource('mp','MethodPaymentController');
@@ -23,6 +22,8 @@ Route::resource('sale','SaleController');
 Route::resource('service','ServiceController');
 Route::resource('user','UserController');
 Route::resource('typeuser','TypeUserController');
+Route::get('showById/{id_category}','CategoryController@showById');
+Route::get('showUser/{service_id}','ServiceController@showUser');
 
 
 Route::group([

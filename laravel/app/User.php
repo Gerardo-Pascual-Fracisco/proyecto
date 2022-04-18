@@ -7,6 +7,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  
 class User extends Authenticatable
 {
+
+    
+    protected $table = "users";
+      protected $primaryKey = 'user_id';
     use HasApiTokens, Notifiable;
  
     /**
@@ -15,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'user_id', 'foto'
     ];
  
     /**
@@ -31,5 +35,15 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Sale', 'id', 'id');
     }
+    
+ 
+   
 
+    public function services()
+    {
+        return $this->belongsToMany('App\Service','user_id,','user_id');
+    }
+    
 }
+
+

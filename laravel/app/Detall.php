@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Detall
  *
  * @property $id_detall
- * @property $id_service
+ * @property $service_id
  * @property $detall
  * @property $price
  * @property $created_at
@@ -24,7 +24,7 @@ class Detall extends Model
     
     static $rules = [
 		'id_detall' => 'required',
-		'id_service' => 'required',
+		'service_id' => 'required',
 		'detall' => 'required',
 		'price' => 'required',
     ];
@@ -36,7 +36,7 @@ class Detall extends Model
      *
      * @var array
      */
-    protected $fillable = ['id_detall','id_service','detall','price'];
+    protected $fillable = ['id_detall','service_id','detall','price'];
 
 
     /**
@@ -52,7 +52,7 @@ class Detall extends Model
      */
     public function service()
     {
-        return $this->hasOne('App\Service', 'id_service', 'id_service');
+        return $this->hasOne('App\Service', 'service_id', 'service_id');
     }
     
 

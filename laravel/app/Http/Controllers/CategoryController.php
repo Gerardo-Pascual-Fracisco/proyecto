@@ -104,4 +104,16 @@ class CategoryController extends ApiController
 
         return response()->json(["mensaje" => "Categoria eliminada"], 201);
 }
+
+
+public function showById($id_category){//criterio de busqueda
+
+
+    $consulta = Category::with('services')->get();
+
+
+    return response()->json($consulta[$id_category-1], 201);
+    
+
+}
 }
