@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import { NavigationContainer } from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/Fontisto';
 import Icon3 from 'react-native-vector-icons/AntDesign'
@@ -17,28 +17,32 @@ import MyServicesScreen from './MyServicesScreen';
 //importar pantallas para configuracion
 import SettingsScreen from './SettingsScreen';
 import EditProfileScreen from './EditProfileScreen';
+import CategoryServices from '../../components/Categories/CategoryServices';
+import TaskItem from '../../components/Categories/TaskItem';
 
-
+const TaskItemStack = createStackNavigator();
+const Stack = createStackNavigator();
 const HomeStack = createStackNavigator();
 const ServicesStack = createStackNavigator();
 const MyServicesStack = createStackNavigator();
 const SettingsStack = createStackNavigator();
-
+const ItemStack = createStackNavigator();
 
 
 
 const Tab = createMaterialBottomTabNavigator();
 
-const MainTabScreen = () => (
+const MainTabScreen = () => ( 
+  
   <Tab.Navigator
     initialRouteName="Home"
     activeColor="#fff"
   >
     <Tab.Screen
-      name="Inicio"
+      name="Home"
       component={HomeStackScreen}
       options={{
-        tabBarLabel: 'Inicio',
+        tabBarLabel: 'Home',
         tabBarColor: '#009387',
         tabBarIcon: ({ color }) => (
           <Icon name="ios-home" color={color} size={26} />
@@ -46,21 +50,21 @@ const MainTabScreen = () => (
       }}
     />
     <Tab.Screen
-      name="Busqueda"
+      name="Services"
       component={ServicesStackScreen}
       options={{
-        tabBarLabel: 'Busqueda',
-        tabBarColor: '#4f6bad',
+        tabBarLabel: 'Services',
+        tabBarColor: '#1f65ff',
         tabBarIcon: ({ color }) => (
           <Icon2 name="person" color={color} size={26} />
         ),
       }}
     />
     <Tab.Screen
-      name="Chat"
+      name="My services"
       component={MyServicesSatckScreen}
       options={{
-        tabBarLabel: 'Chat',
+        tabBarLabel: 'My services',
         tabBarColor: '#694fad',
         tabBarIcon: ({ color }) => (
           <Icon3 name="contacts" color={color} size={26} />
@@ -68,16 +72,17 @@ const MainTabScreen = () => (
       }}
     />
      <Tab.Screen
-      name="Configuraciones"
+      name="Settings"
       component={SettingsSatckScreen}
       options={{
-        tabBarLabel: 'Configuración',
-        tabBarColor: '#ad4f9a',
+        tabBarLabel: 'Settings',
+        tabBarColor: '#694fad',
         tabBarIcon: ({ color }) => (
           <Icon3 name="setting" color={color} size={26} />
         ),
       }}
     />
+    
     
  {/* Pantallas de settings*/}
 
@@ -98,9 +103,8 @@ const HomeStackScreen = ({ navigation }) => (
       fontWeight: 'bold'
     }
   }}>
-    <HomeStack.Screen name="InicioStack" component={HomeScreen} options={{
-      headerShown:false,
-      title: 'Inicio'
+    <HomeStack.Screen name="Home" component={HomeScreen} options={{
+      title: 'Home'
      }} />
   </HomeStack.Navigator>
 );
@@ -116,10 +120,8 @@ const ServicesStackScreen = ({ navigation }) => (
       fontWeight: 'bold'
     }
   }}>
-    <ServicesStack.Screen name="BusquedaStack" component={ServicesScreen}  options={{
-      headerShown:false,
-      title: 'Busqueda'
-     }} />
+    <ServicesStack.Screen name="Services" component={ServicesScreen} options={{
+    }} />
   </ServicesStack.Navigator>
 );
 
@@ -134,9 +136,7 @@ const MyServicesSatckScreen = ({ navigation }) => (
       fontWeight: 'bold'
     }
   }}>
-    <MyServicesStack.Screen name="ChatStack" component={MyServicesScreen} options={{
-      headerShown:false,
-      title: 'Chat'
+    <MyServicesStack.Screen name="My Service" component={MyServicesScreen} options={{
     }} />
   </MyServicesStack.Navigator>
 );
@@ -145,22 +145,80 @@ const MyServicesSatckScreen = ({ navigation }) => (
 const SettingsSatckScreen = ({ navigation }) => (
   <SettingsStack.Navigator screenOptions={{
     headerStyle: {
-      backgroundColor: '#ad4f83',
+      backgroundColor: '#1f65ff',
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
       fontWeight: 'bold'
     }
   }}>
-    <SettingsStack.Screen name="ConfiguraccionesStack" component={SettingsScreen} options={{
-      headerShown:false,
-      title: 'Configuraciones'    
+    <SettingsStack.Screen name="Settings" component={SettingsScreen} options={{
+     
     }} />
       <SettingsStack.Screen 
-      name="EditProfile" //Nombre que coloras en onPress={() => navigation.navigate('EditProfile')}
+      name="EditProfile" 
       component={EditProfileScreen} 
-      options={{title:'Perfil'
+      options={{
     }} />
    
   </SettingsStack.Navigator>
 );
+
+const ItemSatckScreen = ({ navigation }) => (
+  <ItemSatckScreen.Navigator screenOptions={{
+    headerStyle: {
+      backgroundColor: '#1f65ff',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold'
+    }
+  }}>
+    <ItemSatckScreen.Screen name="ItemStack" component={ItemStack} options={{
+     
+    }} />
+      <ItemSatckScreen.Screen 
+      name="ItemStack" 
+      component={ItemSatckScreen} 
+      options={{
+    }} />
+  
+
+
+  </ItemSatckScreen.Navigator>
+
+
+);
+
+
+
+const TaskItemSatckScreen = ({ navigation }) => (
+  <TaskItemSatckScreen.Navigator screenOptions={{
+    headerStyle: {
+      backgroundColor: '#1f65ff',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold'
+    }
+  }}>
+    <TaskItemSatckScreen.Screen name="TaskItem" component={TaskItem} options={{
+     
+    }} />
+      <TaskItemSatckScreen.Screen 
+      name="CategoryServices" 
+      component={CategoryServices} 
+      options={{
+    }} />
+  
+
+
+  </TaskItemSatckScreen.Navigator>
+
+
+);
+
+
+
+
+

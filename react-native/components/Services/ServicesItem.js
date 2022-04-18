@@ -16,7 +16,7 @@ const SerrvicesItem = ({ Service,handleDelete }) => {
 
           <TouchableOpacity
         style={{ backgroundColor: "#ee5253", padding: 7, borderRadius: 5 }}
-        onPress={() => handleDelete(Service.id_service)}
+        onPress={() => handleDelete(Service.service_id)}
       >
         <Text style={{ color: "#fff" }}>View</Text>
       </TouchableOpacity>

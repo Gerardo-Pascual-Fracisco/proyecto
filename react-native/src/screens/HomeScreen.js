@@ -1,11 +1,7 @@
 import React from "react";
 import Layout from "../../components/Categories/Layout";
-
 import TasksList from "../../components/Categories/TasksList";
 import { Dimensions, View, Text, StyleSheet, ScrollView, TouchableOpacity, ImageBackground, TextInput } from 'react-native';
-import { Button, ButtonGroup, withTheme, SearchBar, Divider } from '@rneui/themed';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import CarouselImages from '../../components/Categories/CarouselImages';
 
 import Feather from 'react-native-vector-icons/Feather';
