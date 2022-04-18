@@ -1,53 +1,99 @@
-import React from 'react';
-import { View, Text, StyleSheet, StatusBar, ScrollView,Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, StatusBar, ScrollView, Image, FlatList, RefreshControl, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, SearchBar, Divider } from '@rneui/themed';
+import { getUser, updateUser } from '../../src/api/api_user'
 
-const EditProfileScreen = () => {
+const EditProfileScreen = ({ task }) => {
+
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const [tasks, setUser] = useState([])
+  const [getName, setName] = useState([])
+  
+  const loadUser = async () => {
+    const data = await getUser()
+    setUser(data.usuario);
+  };
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  const renderItem = ({ item }) => {
+
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.principal}>
+          <View style={styles.imagen}>
+            <Image style={{
+              width: 100,
+              height: 100,
+            }}
+              source={{
+                uri: 'https://reactnative.dev/img/tiny_logo.png',
+              }}></Image>
+          </View>
+          <View style={styles.contenedor_p}>
+            <View style={styles.info_p}>
+              <Text>Nombre: {item.name}</Text>
+              <Text>Correo: </Text><TextInput defaultValue={item.email} onChangeText={(val) => setName(val)} disable={true} />
+
+            </View>
+            <View style={styles.botton_edit}>
+              <Button onPress={() => updateUser({
+                name: "perla",
+                email: "destiney.zboncak@example.com",
+                address: "718 Eugenia Underpass Cletustown"
+              })}></Button>
+            </View>
+          </View>
+        </View>
+        <Divider
+          style={{ width: "100%" }}
+          color="#e4e6e8"
+          insetType="left"
+          subHeaderStyle={{}}
+          width={10}
+          orientation="horizontal"
+        />
+        <View style={styles.contenedor_1}>
+          <View style={styles.contenedor_2}>
+            <View style={styles.c_texto_1}><Text style={styles.texto_1}>Direccion</Text></View>
+            <View style={styles.contenedor_3}><Text>{item.address}</Text></View>
+          </View>
+          <View style={styles.contenedor_2}>
+            <View style={styles.c_texto_1}><Text style={styles.texto_1}>Metodo de Pago</Text></View>
+            <View style={styles.contenedor_3}></View>
+          </View>
+          <View style={styles.contenedor_2}>
+            <View style={styles.c_texto_1}><Text style={styles.texto_1}>Redes sociales</Text></View>
+            <View style={styles.contenedor_3}></View>
+          </View>
+        </View>
+      </SafeAreaView>
+    );
+  };
+  const onRefresh = React.useCallback(async () => {
+
+    setRefreshing(true);
+    await loadUser();
+    setRefreshing(false);
+  })
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.principal}>
-        <View style={styles.imagen}>
-<Image style={{
-   width: 100,
-    height: 100,}}
- source={{
-          uri: 'https://reactnative.dev/img/tiny_logo.png',
-        }}></Image>
-        </View>
-        <View style={styles.contenedor_p}>
-          <View style={styles.info_p}>
-            <Text>Nombre: </Text>
-            <Text>Correo: </Text>
-          </View>
-          <View style={styles.botton_edit}>
-            <Button></Button>
-          </View>
-        </View>
-      </View>
-      <Divider
-        style={{ width: "100%" }}
-        color="#e4e6e8"
-        insetType="left"
-        subHeaderStyle={{}}
-        width={10}
-        orientation="horizontal"
-      />
-      <View style={styles.contenedor_1}>
-        <View style={styles.contenedor_2}>
-          <View style={styles.c_texto_1}><Text style={styles.texto_1}>Direccion</Text></View>
-          <View style={styles.contenedor_3}></View>
-        </View>
-        <View style={styles.contenedor_2}>
-          <View style={styles.c_texto_1}><Text style={styles.texto_1}>Metodo de Pago</Text></View>
-          <View style={styles.contenedor_3}></View>
-        </View>
-        <View style={styles.contenedor_2}>
-          <View style={styles.c_texto_1}><Text style={styles.texto_1}>Redes sociales</Text></View>
-          <View style={styles.contenedor_3}></View>
-        </View>
-      </View>
-    </SafeAreaView>
+    <FlatList
+      data={tasks}
+      keyExtractor={(item) => item.id + ""}
+      renderItem={renderItem}
+
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          colors={["#78e08f"]}
+          onRefresh={onRefresh}
+          progressBackgroundColor="#000"
+        />
+      }
+    />
   );
 };
 
@@ -72,7 +118,7 @@ const styles = StyleSheet.create({
     margin: 10,
     width: 100,
     height: 100,
-    
+
   },
   contenedor_p: {
     //backgroundColor: 'green',
@@ -87,7 +133,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#e4e6e8',
     flex: 1,
     borderRadius: 10,
-    padding:5,
+    padding: 5,
   },
   botton_edit: {
     //backgroundColor: 'yellow',

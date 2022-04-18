@@ -1,4 +1,4 @@
-const API = 'http://192.168.197.27:8000/api/user/1'
+const API = 'http://192.168.197.27:8000/api/mp/1'
 export const getUser = async () => {
   const res = await fetch(API)
   return await res.json()

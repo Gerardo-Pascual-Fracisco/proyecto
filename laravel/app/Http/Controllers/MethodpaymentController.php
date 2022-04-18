@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\MethodPayment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ApiController;
 
 /**
@@ -19,8 +20,8 @@ class MethodPaymentController extends ApiController
      */
     public function index()
     {
-        $methodPayments = MethodPayments::find($request);
-        return $this->showAll($methodPayments);
+        $methodPayments = MethodPayments::all();
+        return $this->showAll($methodPayments); 
     }
 
     /**
@@ -54,10 +55,14 @@ class MethodPaymentController extends ApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($request)
+    public function show($id)
     {
-        $methodPayments = MethodPayments::find($request);
-        return response()->json($methodPayments);
+        $methodPayments = DB::table('methodpayments')
+        ->where('id_mPayment','=',$id)
+        ->get();
+
+        return response()->json(['data' => $methodPayments],200);
+        
     }
 
     /**
@@ -92,7 +97,7 @@ class MethodPaymentController extends ApiController
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy($request)
+    public function destroy(Request $request)
     {
         $methodPayments = MethodPayments::destroy($request->id);
         return $this->showAll($methodPayments,200);

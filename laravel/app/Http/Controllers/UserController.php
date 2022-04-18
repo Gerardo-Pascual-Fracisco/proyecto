@@ -47,7 +47,8 @@ class UserController extends ApiController
     public function update(Request $request, $id )
     {
         //$this->allowedAdminAction();
-        /**al hacer una modificación debe de ser un dato diferente por ello ocupamos el metodo only e intersec solo optiene 
+        /**al hacer una modificación debe de ser un dato diferente 
+         * por ello ocupamos el metodo only e intersec solo optiene 
          *el nombre y la descripción**/
         $user = User::findOrfail($id);
          $user->fill($request->only([

@@ -1,5 +1,5 @@
-const API = 'http://192.168.248.27:8000/api/category'
-const SERVICES = 'http://192.168.248.27:8000/api/service'
+const API = 'http://192.168.197.27:8000/api/category'
+const SERVICES = 'http://192.168.197.27:8000/api/service'
 
 export const getTasks=async() => { 
     const res = await fetch(API)

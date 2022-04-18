@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ApiController;
 
 class CategoryController extends ApiController
@@ -22,7 +23,6 @@ class CategoryController extends ApiController
 
     public function store(Request $request)
     {
-
         $category = new Category;
         $data = $request->json()->all();
         $name = $data['name'];

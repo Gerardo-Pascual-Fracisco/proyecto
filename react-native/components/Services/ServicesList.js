@@ -3,8 +3,6 @@ import { FlatList,RefreshControl} from "react-native";
 import SerrvicesItem from '../../components/Services/ServicesItem'
 import CarouselImages from '../../components/Categories/CarouselImages'
 import { getServices} from '../../api'
-import ServicesScreen from '../../src/screens/ServicesScreen'
-
 
 const ServicesList = () => {
 
