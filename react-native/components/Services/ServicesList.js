@@ -1,7 +1,6 @@
 import React,{useState,useEffect} from "react";
 import { FlatList,RefreshControl} from "react-native";
 import SerrvicesItem from '../../components/Services/ServicesItem'
-import CarouselImages from '../../components/Categories/CarouselImages'
 import { getServices} from '../../api'
 
 const ServicesList = () => {
@@ -19,8 +18,8 @@ const ServicesList = () => {
   }, []);
 
   //Eliminar
-  const handleDelete = async (id_service) => {
-    await deleteService(id_service)
+  const handleDelete = async (service_id) => {
+    await deleteService(service_id)
       //console.log(id_category)
     await loadServices ()//volver a cargar datos
 }
@@ -38,7 +37,7 @@ const ServicesList = () => {
     <FlatList
     style={{ width: '100%'}}
       data={Services}
-      keyExtractor={(item) => item.id_service + ""}
+      keyExtractor={(item) => item.service_id + ""}
       renderItem={renderItem}
 
       refreshControl={

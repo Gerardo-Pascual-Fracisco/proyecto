@@ -1,5 +1,8 @@
-const API = 'http://192.168.197.27:8000/api/category'
-const SERVICES = 'http://192.168.197.27:8000/api/service'
+
+const API = 'http://192.168.1.187:8000/api/category'
+const SERVICES = 'http://192.168.1.187:8000/api/service'
+
+const MOSTRAR_SERVICES = 'http://192.168.1.187:8000/api/showById/1'
 
 export const getTasks=async() => { 
     const res = await fetch(API)
@@ -7,6 +10,11 @@ export const getTasks=async() => {
 }
 export const getServices=async() => { 
   const res = await fetch(SERVICES)
+  return await res.json()
+}
+
+export const getCateServices=async() => { 
+  const res = await fetch(MOSTRAR_SERVICES)
   return await res.json()
 }
 export const saveTask = async (newTask) => {

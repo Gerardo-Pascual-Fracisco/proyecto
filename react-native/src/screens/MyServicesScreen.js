@@ -1,78 +1,91 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, StatusBar, ScrollView } from 'react-native';
-import { Button, ButtonGroup, withTheme, SearchBar, Divider, Input } from '@rneui/themed';
-import { useTheme } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, {useEffect, useState} from "react";
+import { StyleSheet,Text, View ,FlatList,RefreshControl} from 'react-native'
+import {getCateServices} from '../../api'
 
-const MyServicesScreen = ({ navigation }) => {
-  const { colors } = useTheme();
-  const theme = useTheme();
+export default function MyServicesScreen ({ navigation, route}) {
+  
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle={theme.dark ? "light-content" : "dark-content"} />
+    console.log(route.params)
+    const [refreshing, setRefreshing] = React.useState(false);
+
+      const [tasks, setTasks] = useState([])
+  
+      const loadTasks = async () => {
+        const data = await getCateServices()
+        setTasks(data);
+        console.log(data)
+      };
+      useEffect(() => {
+        loadTasks();
+      }, []);
+      const renderItem = ({ item }) => {
+        return
+        (
+          <View style={styles.itemContainer}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate}
+              >
       
-      <View style={styles.contenedor_s}>
-        <View style={styles.chat}>
+              <Text style={styles.itemTitle}>{item.service_n}</Text>
+              <Image source={{ uri: item.foto }}
+                style={styles.image} />
+            </TouchableOpacity>
+      
+            <TouchableOpacity
+              style={{ backgroundColor: "#ee5253", padding: 7, borderRadius: 5 }}
+              onPress={() => navigation.navigate("My services")}
+            >
+      
+      
+              <Text style={{ color: "#fff" }}>View</Text>
+            </TouchableOpacity>
+          </View>
+        );
+       };
+       const onRefresh = React.useCallback(async () => {
 
-        </View>
-        <View style={styles.lista}>
-        </View>
-        
-      </View>
-      <View style={styles.teclado}>
-        <Input
-          disabledInputStyle={{ background: "#ddd" }}
-          label="User Form"
-          leftIcon={<Icon name="account-outline" size={20} />}
-          leftIconContainerStyle={{}}
-          rightIcon={<Icon name="close" size={20} />}
-          rightIconContainerStyle={{}}
-          placeholder="Mensaje"
+        setRefreshing(true);
+        await loadTasks () ;
+        setRefreshing(false);
+    })
+      return (
+        <FlatList
+        style={{ width: '100%'}}
+          data={tasks}
+          keyExtractor={(item) => item.service_id + ""}
+          renderItem={renderItem}
+    
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              colors={["#78e08f"]}
+              onRefresh={onRefresh}
+              progressBackgroundColor="#000"
         />
-      </View>
-    </SafeAreaView>
-  );
-};
+    }
+    />
+    
+    );
+  };
+  const styles = StyleSheet.create({
+    itemContainer: {
+      backgroundColor: "#FFFFFF",
+      padding: 20,
+      marginVertical: 8,
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      borderRadius: 5,
+    },
+    itemTitle: {
+      color: "#000000",
+    },
+    image: {
+      width: 50,
+      height: 50,
+    },
+  });
 
-export default MyServicesScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    display: 'flex',
-    margin: 10,
-  },
-  contenedor_s: {
-    flex: 1,
-//    backgroundColor: "blue",
-    flexDirection: 'row',
-  },
-  chat: {
-    backgroundColor: "#d7dbdd",
-    borderColor:'#a1a4a6',
-    flex: 1,
-    margin:5,
-    padding:90,
-    borderRadius:15,
-    borderWidth:2,    
-  },
-  lista: {
-    backgroundColor: "#d7dbdd",
-    borderColor:'#a1a4a6',
-    flex: 1,
-    margin:5,
-    borderRadius:15, 
-    borderWidth:2, 
-  },
-  teclado: {
-    //backgroundColor: "yellow",
-    alignItems: 'flex-start',
-    justifyContent: 'flex-end',
-    marginTop:10,
-    borderRadius:15,
-    borderColor:'#a1a4a6',
-    borderWidth:2, 
-  }
-});
+
+

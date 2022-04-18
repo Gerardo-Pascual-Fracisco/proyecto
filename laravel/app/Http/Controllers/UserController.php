@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Service;
+use App\serviceUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ApiController;
@@ -74,4 +76,8 @@ class UserController extends ApiController
         $user = User::destroy($request->id);
         return $this->showOne($user, 200);
     }
+
+  
+   
+
 }

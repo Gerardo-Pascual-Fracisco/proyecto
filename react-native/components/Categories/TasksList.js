@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { FlatList, RefreshControl } from "react-native";
 import TaskItem from '../../components/Categories/TaskItem'
-import CarouselImages from '../../components/Categories/CarouselImages'
-import { getTasks, deleteTask } from '../../api'
+import { getTasks,deleteTask } from '../../api'
+
 
 const Tasklist = () => {
 

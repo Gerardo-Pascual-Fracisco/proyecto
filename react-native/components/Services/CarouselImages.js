@@ -57,7 +57,7 @@ export default function CarouselImages() {
         decelerationRate={0}
         scrollEventThrottle={16}
         data={services}
-        keyExtractor={(item) => item.id_service+ ""}
+        keyExtractor={(item) => item.service_id+ ""}
 
         renderItem={({ item, index }) => {
           const inputRange = [

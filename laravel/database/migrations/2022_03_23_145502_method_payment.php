@@ -14,7 +14,7 @@ class MethodPayment extends Migration
     public function up()
     {
         Schema::create('methodPayments', function (Blueprint $table) {
-            $table->id('id_mPayment');
+            $table->bigIncrements('id_mPayment');
             $table->string('type_method');
         });
     }

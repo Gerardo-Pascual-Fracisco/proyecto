@@ -14,7 +14,7 @@ class Category extends Migration
     public function up()
     {
         Schema::create('category', function (Blueprint $table) {
-            $table->id('id_category');
+            $table->bigIncrements('id_category');
             $table->string('name');
             $table->string('foto')->nullable();
 
