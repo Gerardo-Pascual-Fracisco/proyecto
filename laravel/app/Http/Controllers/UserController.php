@@ -44,10 +44,25 @@ class UserController extends ApiController
     //
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id )
     {
-        $user = User::findOrFail($request->id);
-        $user->name = $request->name;
+        //$this->allowedAdminAction();
+        /**al hacer una modificación debe de ser un dato diferente por ello ocupamos el metodo only e intersec solo optiene 
+         *el nombre y la descripción**/
+        $user = User::findOrfail($id);
+         $user->fill($request->only([
+            'name',
+            'foto',
+        ]));
+       
+        /**  el metodo isclean() verifica que la instancia o los datoso no hayan cambio de ser 
+         * así retornamos un errors*
+        */
+       
+        if($user->isClean()){
+            return $this->errorResponse('Debes Especificar almenos un campo diferente', 422);
+        }
+        /** Si detatmos un cambio en datos procedemos a el metodo save() */
 
         $user->save();
         return $this->showOne($user);
