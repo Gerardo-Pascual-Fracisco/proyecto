@@ -6,39 +6,20 @@ use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
 
-/**
- * Class CategoryController
- * @package App\Http\Controllers
- */
 class CategoryController extends ApiController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
           $category = Category::all();
           return $this->showAll($category);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
       //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 
@@ -51,12 +32,6 @@ class CategoryController extends ApiController
         //return $this->showAll($category, 201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(Request $request)
     {
         $category = Category::find($request);
@@ -65,38 +40,35 @@ class CategoryController extends ApiController
     
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
     //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  Category $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
+    public function update(Request $request, $id )
     {
-        $category = Category::findOrFail($request->id);
-        $category->name = $request->name;
+        //$this->allowedAdminAction();
+        /**al hacer una modificación debe de ser un dato diferente por ello ocupamos el metodo only e intersec solo optiene 
+         *el nombre y la descripción**/
+        $category = Category::findOrfail($id);
+         $category->fill($request->only([
+            'name',
+            'foto',
+        ]));
+       
+        /**  el metodo isclean() verifica que la instancia o los datoso no hayan cambio de ser 
+         * así retornamos un errors*
+        */
+       
+        if($category->isClean()){
+            return $this->errorResponse('Debes Especificar almenos un campo diferente', 422);
+        }
+        /** Si detatmos un cambio en datos procedemos a el metodo save() */
 
         $category->save();
-        return $this->showAll($category);
+        return $this->showOne($category);
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
     public function destroy($id_category){
 
         Category::destroy($id_category);
