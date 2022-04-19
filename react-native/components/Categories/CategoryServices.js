@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-export default function CategoryServices () {
+export default function CategoryServices ({ navigation }) {
     return (
          <View>
              <Text>Services...</Text>
