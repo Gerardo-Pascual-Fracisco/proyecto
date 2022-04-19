@@ -3,11 +3,12 @@
 const API = 'http://192.168.1.126:8000/api/category'
 const SERVICES = 'http://192.168.1.126:8000/api/service'
 
-const MOSTRAR_SERVICES = 'http://192.168.1.126:8000/api/showById/1'
+const MOSTRAR_SERVICES = 'http://192.168.1.126:8000/api/showById/'
 
 
 export const getTasks=async() => { 
     const res = await fetch(API)
+    
     return await res.json()
 }
 export const getServices=async() => { 
@@ -15,10 +16,16 @@ export const getServices=async() => {
   return await res.json()
 }
 
-export const getCateServices=async() => { 
-  const res = await fetch(MOSTRAR_SERVICES)
-  return await res.json()
-}
+
+
+
+
+
+export const getCateServices = async (id) => {
+  const res = await fetch(`${MOSTRAR_SERVICES}/${id}`);
+  return await res.json();
+};
+
 export const saveTask = async (newTask) => {
     const res = await fetch(API, {
       method: "POST",
