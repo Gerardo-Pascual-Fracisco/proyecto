@@ -10,7 +10,7 @@ const TaskItem = ({ task}) => {
   return (
     <View style={styles.itemContainer}>
       <TouchableOpacity
-        onPress={() => navigation.navigate("My services", )}
+        onPress={() => navigation.navigate("CategoryS")}//
         >
 
         <Text style={styles.itemTitle}>{task.name}</Text>
@@ -20,10 +20,8 @@ const TaskItem = ({ task}) => {
 
       <TouchableOpacity
         style={{ backgroundColor: "#ee5253", padding: 7, borderRadius: 5 }}
-        onPress={() => navigation.navigate("My services")}
+        onPress={() => navigation.navigate("CategoryS")}
       >
-
-
         <Text style={{ color: "#fff" }}>View</Text>
       </TouchableOpacity>
     </View>
