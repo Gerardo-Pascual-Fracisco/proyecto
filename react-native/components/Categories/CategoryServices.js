@@ -125,6 +125,7 @@ const CategoryServices = ({route}) => {
     );
   };
 
+
   const onRefresh = React.useCallback(async () => {
 
     setRefreshing(true);
