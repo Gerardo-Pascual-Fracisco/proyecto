@@ -32,11 +32,11 @@ class UserController extends ApiController
         return $this->showOne($user, 201);
     }
     
-     public function show($id)
+     public function show($user_id)
     {
         $users = DB::table('users')
-                ->where('name','=',$id)
-                ->orwhere('id','=',$id)
+                ->where('name','=',$user_id)
+                ->orwhere('user_id','=',$user_id)
                 ->get();
         return response()->json(['usuario' => $users],200);
     }

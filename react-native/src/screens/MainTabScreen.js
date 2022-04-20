@@ -14,9 +14,11 @@ import HomeScreen from './HomeScreen';
 import ServicesScreen from './ServicesScreen';
 //importar pantallas para chat
 import MyServicesScreen from './MyServicesScreen';
-//importar pantallas para configuracion
+//importar pantallas para configuracion   
 import SettingsScreen from './SettingsScreen';
 import EditProfileScreen from './EditProfileScreen';
+import CategoryUsers from '../../components/Categories/CategoryUsers';
+import User from '../../components/Categories/User';
 
 const HomeStack = createStackNavigator();
 const ServicesStack = createStackNavigator();
@@ -109,6 +111,16 @@ const HomeStackScreen = ({ navigation }) => (
        <HomeStack.Screen
       name="CategoryS"
       component={CategoryServices}
+      options={{
+      }} />
+      <HomeStack.Screen
+      name="CategoryU"
+      component={CategoryUsers}
+      options={{
+      }} />
+      <HomeStack.Screen
+      name="User"
+      component={User}
       options={{
       }} />
   </HomeStack.Navigator>

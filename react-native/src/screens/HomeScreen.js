@@ -40,24 +40,7 @@ const HomeScreen = () => {
             </TouchableOpacity>
           </View>
 
-          <View
-            style={{
-              flexDirection: "row",
-              borderColor: "#C6C6C6",
-              borderWidth: 1,
-              borderRadius: 8,
-              paddingHorizontal: 10,
-              paddingVertical: 8,
-            }}
-          >
-            <Feather
-              name="search"
-              size={20}
-              color="#C6C6C6"
-              style={{ marginRight: 10 }}
-            />
-            <TextInput placeholder="Search" />
-          </View>
+        
 
           <View
             style={{
@@ -87,34 +70,37 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "stretch",
-    backgroundColor: "red",
+    alignItems: 'stretch',
+    backgroundColor: 'red',
     flex: 1,
-    flexDirection: "column",
+    flexDirection: 'column',
 
     // justifyContent: 'center',
   },
   container1: {
-    alignItems: "center",
-    backgroundColor: "white",
+    alignItems: 'center',
+    backgroundColor: 'white',
     flex: 1,
-    justifyContent: "center",
-    alignItems: "stretch",
+    justifyContent: 'center',
+    alignItems: 'stretch',
+
+
+
   },
   container2: {
-    alignItems: "center",
-    backgroundColor: "white",
+    alignItems: 'center',
+    backgroundColor: 'white',
     flex: 1,
-    justifyContent: "center",
-  },
-  container3: {
-    alignItems: "center",
-    backgroundColor: "white",
+    justifyContent: 'center',
+  }, container3: {
+    alignItems: 'center',
+    backgroundColor: 'white',
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
 
   viewBody: {
     flex: 1,
-  },
-});
+  }
+
+})

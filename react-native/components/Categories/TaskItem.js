@@ -43,9 +43,9 @@ const styles = StyleSheet.create({
   itemTitle: {
     color: "#000000",
   },
-  image: {
+  image:{
     width: 50,
     height: 50,
-  },
+   },
 });
 export default TaskItem;

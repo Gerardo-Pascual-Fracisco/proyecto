@@ -3,7 +3,6 @@
 const API = 'http://192.168.1.126:8000/api/category'
 const SERVICES = 'http://192.168.1.126:8000/api/service'
 
-const MOSTRAR_SERVICES = 'http://192.168.1.126:8000/api/showById/'
 
 
 export const getTasks=async() => { 
@@ -15,10 +14,6 @@ export const getServices=async() => {
   const res = await fetch(SERVICES)
   return await res.json()
 }
-
-
-
-
 
 
 export const getCateServices = async (id) => {
