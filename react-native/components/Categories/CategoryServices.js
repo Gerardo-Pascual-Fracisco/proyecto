@@ -18,7 +18,7 @@ const width = Dimensions.get('window').width / 2 - 30;
 const CategoryServices = ({ route }) => {
   const { name, id } = route.params
   const navigation = useNavigation();
-  const SERVICES = `http://192.168.1.126:8000/api/showById/${id}`
+  const SERVICES = `http://192.168.1.187:8000/api/showById/${id}`
 
 
   const [refreshing, setRefreshing] = React.useState(false);

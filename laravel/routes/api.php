@@ -31,6 +31,8 @@ Route::group([
 ], function () {
     Route::post('login', 'api\AuthController@login');
     Route::post('signup', 'api\AuthController@signUp');
+    Route::post('register', 'api\PassportController@register');
+
 
     Route::group([
       'middleware' => 'api'
@@ -39,4 +41,3 @@ Route::group([
         Route::get('user', 'api\AuthController@user');
     });
 });
-Route::get('logout', 'api\AuthController@logout');

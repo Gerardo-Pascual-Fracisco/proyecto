@@ -43,7 +43,7 @@ const ServicesScreen = () => {
         <Text style={styles.title}>Comserp</Text>
         <TextInput
           style={styles.searchInput}
-          placeholder="Search a Service"
+          placeholder="Buscar Servicio "
           placeholderTextColor="#000000"
           onChangeText={(text) => text && setSearch(text)}
         />

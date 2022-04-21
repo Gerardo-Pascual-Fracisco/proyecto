@@ -21,7 +21,7 @@ const CategoryItem = ({ task}) => {
         style={{ backgroundColor: "#2E8B57", padding: 7, borderRadius: 5 }}
         onPress={() => navigation.navigate("CategoryS", { id:task.id_category,name:task.name })}
       >
-        <Text style={{ color: "#FFF" }}>View</Text>
+        <Text style={{ color: "#FFF" }}>Ver</Text>
       </TouchableOpacity>
     </View>
   );

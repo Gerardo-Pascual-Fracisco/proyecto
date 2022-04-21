@@ -1,7 +1,7 @@
 
 
-const API = 'http://192.168.1.126:8000/api/category'
-const SERVICES = 'http://192.168.1.126:8000/api/service'
+const API = 'http://192.168.1.187:8000/api/category'
+const SERVICES = 'http://192.168.1.187:8000/api/service'
 
 
 

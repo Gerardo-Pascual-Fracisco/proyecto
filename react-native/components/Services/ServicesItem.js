@@ -19,7 +19,7 @@ const ServicesItem = ({ Service }) => {
         style={{ backgroundColor: "#2E8B57", padding: 7, borderRadius: 5 }}
         onPress={() => navigation.navigate("CategoryU", { id: Service.service_id, name: Service.service_n })}>
 
-        <Text style={{ color: "#fff" }}>View</Text>
+        <Text style={{ color: "#fff" }}>Ver</Text>
       </TouchableOpacity>
     </View>
   );

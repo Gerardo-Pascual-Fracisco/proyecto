@@ -12,7 +12,7 @@ class DataSeeder extends Seeder
 {
     public function run()
     {
-        factory('App\Category', 10)->create();
+        factory('App\Category', 6)->create();
         factory('App\MethodPayment', 3)->create();
         factory('App\Service', 10)->create();
         factory('App\User', 10)->create();

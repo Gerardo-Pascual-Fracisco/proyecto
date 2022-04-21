@@ -49,7 +49,8 @@ const HomeScreen = () => {
               justifyContent: "space-between",
             }}
           >
-            <Text style={{ fontSize: 18 }}>Categories</Text>
+            <Text style={styles.title}>Categorias</Text>
+
           </View>
 
           <CarouselImages />
@@ -101,7 +102,13 @@ const styles = StyleSheet.create({
 
   viewBody: {
     flex: 1,
-  }
+    
+  },
+  title: {
+    fontSize: 40,
+    color: "#000000",
+    marginTop: 10,
+  },
 
 })
 

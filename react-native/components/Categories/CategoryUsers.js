@@ -45,7 +45,6 @@ const CategoryUsers = ({ route }) => {
       .get(USERS)
       .then(res => {
         setusers(res.data.users)
-        console.log(res)
 
       })
       .catch(err => {
