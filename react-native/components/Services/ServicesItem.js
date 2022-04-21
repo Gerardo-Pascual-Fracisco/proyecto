@@ -1,47 +1,48 @@
 import React from "react";
-import { View, Text, StyleSheet,TouchableOpacity,Image } from "react-native";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-import { Button, ButtonGroup, withTheme,SearchBar, Divider } from '@rneui/themed';
+const ServicesItem = ({ Service }) => {
+  const navigation = useNavigation();
 
-const SerrvicesItem = ({ Service,handleDelete }) => {
-    return (
-        <View style={styles.itemContainer}>
-                      <TouchableOpacity>
-                    
-          <Text style={styles.itemTitle}>{ Service.service_n }</Text>
-          <Image source={{uri: Service.foto}}
-            style={styles.image}/>
+  return (
+    <View style={styles.itemContainer}>
+      <TouchableOpacity onPress={() => navigation.navigate("CategoryU", { id: Service.service_id, name: Service.service_n })}>
+
+
+        <Text style={styles.itemTitle}>{Service.service_n}</Text>
+        <Image source={{ uri: Service.foto }}
+          style={styles.image} />
       </TouchableOpacity>
 
-          <TouchableOpacity
-        style={{ backgroundColor: "#ee5253", padding: 7, borderRadius: 5 }}
-        onPress={() => handleDelete(Service.service_id)}
-      >
+      <TouchableOpacity
+        style={{ backgroundColor: "#2E8B57", padding: 7, borderRadius: 5 }}
+        onPress={() => navigation.navigate("CategoryU", { id: Service.service_id, name: Service.service_n })}>
+
         <Text style={{ color: "#fff" }}>View</Text>
       </TouchableOpacity>
-      </View>
-      );
-      
-      
-    };
-      
-    const styles = StyleSheet.create({
-      itemContainer: {
-        backgroundColor: "#FFFFFF",
-        padding: 20,
-        marginVertical: 8,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        borderRadius: 5,
-      },
-      itemTitle: {
-        color: "#000000",
-      },
-      image:{
-        width: 50,
-        height: 50,
-       },
-    });
-      export default SerrvicesItem;
+    </View>
+  );
+
+
+};
+
+const styles = StyleSheet.create({
+  itemContainer: {
+    backgroundColor: "#FFFFFF",
+    padding: 20,
+    marginVertical: 8,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderRadius: 5,
+  },
+  itemTitle: {
+    color: "#000000",
+  },
+  image: {
+    width: 50,
+    height: 50,
+  },
+});
+export default ServicesItem;

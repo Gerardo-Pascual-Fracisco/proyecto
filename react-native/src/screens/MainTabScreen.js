@@ -49,7 +49,7 @@ const MainTabScreen = () => (
       component={ServicesStackScreen}
       options={{
         tabBarLabel: 'Services',
-        tabBarColor: '#1f65ff',
+        tabBarColor: '#009387',
         tabBarIcon: ({ color }) => (
           <Icon2 name="person" color={color} size={26} />
         ),
@@ -60,7 +60,7 @@ const MainTabScreen = () => (
       component={MyServicesSatckScreen}
       options={{
         tabBarLabel: 'My services',
-        tabBarColor: '#4f6bad',
+        tabBarColor: '#009387',
         tabBarIcon: ({ color }) => (
           <Icon3 name="contacts" color={color} size={26} />
         ),
@@ -71,7 +71,7 @@ const MainTabScreen = () => (
       component={SettingsSatckScreen}
       options={{
         tabBarLabel: 'Settings',
-        tabBarColor: '#ad4f9a',
+        tabBarColor: '#009387',
         tabBarIcon: ({ color }) => (
           <Icon3 name="setting" color={color} size={26} />
         ),

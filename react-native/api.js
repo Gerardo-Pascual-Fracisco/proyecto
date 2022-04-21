@@ -1,11 +1,14 @@
 
 
-const API = 'http://192.168.1.72:8000/api/category'
-const SERVICES = 'http://192.168.1.72:8000/api/service'
+const API = 'http://192.168.1.126:8000/api/category'
+const SERVICES = 'http://192.168.1.126:8000/api/service'
 
 
-//obtener categorias
-export const getTasks = async () => {
+
+
+
+//obtener categorias  
+export const getCategories = async () => {
   const res = await fetch(API)
   return await res.json();
 }

@@ -1,31 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { FlatList, RefreshControl } from "react-native";
-import TaskItem from '../../components/Categories/TaskItem'
-import { getTasks,deleteTask } from '../../api'
+import CategoryItem from './CategoryItem'
+import { getCategories, deleteTask } from '../../api'
 
 
-const Tasklist = () => {
+const CategoriesList = () => {
 
   const [refreshing, setRefreshing] = React.useState(false);
 
-  const [tasks, setTasks] = useState([])
+  const [categories, setcategories] = useState([])
 
-  const loadTasks = async () => {
-    const data = await getTasks()
-    setTasks(data.data);
+  const loadcategories = async () => {
+    const data = await getCategories()
+    setcategories(data.data);
   };
   useEffect(() => {
-    loadTasks();
+    loadcategories();
   }, []);
 
-  //Eliminar
-  const handleDelete = async (id_category) => {
-    await deleteTask(id_category)
-    //console.log(id_category)
-    await loadTasks()//volver a cargar datos
-  }
+
   const renderItem = ({ item }) => {
-    return <TaskItem task={item} handleDelete={handleDelete} />
+    return <CategoryItem task={item} />
   };
 
 
@@ -34,13 +29,13 @@ const Tasklist = () => {
   const onRefresh = React.useCallback(async () => {
 
     setRefreshing(true);
-    await loadTasks();
+    await loadcategories();
     setRefreshing(false);
   })
   return (
     <FlatList
       style={{ width: '100%' }}
-      data={tasks}
+      data={categories}
       keyExtractor={(item) => item.id_category + ""}
       renderItem={renderItem}
 
@@ -64,4 +59,4 @@ const Tasklist = () => {
 
 
 };
-export default Tasklist;
+export default CategoriesList;

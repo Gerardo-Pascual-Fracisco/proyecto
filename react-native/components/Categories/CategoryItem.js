@@ -2,10 +2,9 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const TaskItem = ({ task}) => {
+const CategoryItem = ({ task}) => {
   const navigation = useNavigation();
   
-        /*onPress={() => navigation.navigate("My services", { id: task.id_category,name: task.name })}*/
 
   return (
     <View style={styles.itemContainer}>
@@ -19,10 +18,10 @@ const TaskItem = ({ task}) => {
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={{ backgroundColor: "#ee5253", padding: 7, borderRadius: 5 }}
-        onPress={() => navigation.navigate("CategoryS")}
+        style={{ backgroundColor: "#2E8B57", padding: 7, borderRadius: 5 }}
+        onPress={() => navigation.navigate("CategoryS", { id:task.id_category,name:task.name })}
       >
-        <Text style={{ color: "#fff" }}>View</Text>
+        <Text style={{ color: "#FFF" }}>View</Text>
       </TouchableOpacity>
     </View>
   );
@@ -48,4 +47,4 @@ const styles = StyleSheet.create({
     height: 50,
    },
 });
-export default TaskItem;
+export default CategoryItem;

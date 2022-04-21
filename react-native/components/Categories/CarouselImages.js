@@ -1,7 +1,7 @@
 
-   
+
 import { StatusBar } from "expo-status-bar";
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,7 +11,7 @@ import {
   SafeAreaView,
   Animated,
 } from "react-native";
-import { getTasks,deleteTask } from '../../api'
+import { getCategories, deleteTask } from '../../api'
 
 
 
@@ -27,9 +27,9 @@ const ESPACIO = 1;
 export default function CarouselImages() {
 
   const [tasks, setTasks] = useState([])
-  
+
   const loadTasks = async () => {
-    const data = await getTasks()
+    const data = await getCategories()
     setTasks(data.data);
   };
   useEffect(() => {
@@ -82,8 +82,8 @@ export default function CarouselImages() {
                   transform: [{ translateY: scrollY }],
                 }}
               >
-                <Image source={{ uri: item.foto}} style={styles.posterImage} />
-                
+                <Image source={{ uri: item.foto }} style={styles.posterImage} />
+
 
 
                 <Text style={{ fontWeight: "bold", fontSize: 26 }}> {item.name} </Text>

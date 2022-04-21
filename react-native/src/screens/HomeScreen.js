@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../../components/Categories/Layout";
-import TasksList from "../../components/Categories/TasksList";
+import CategoriesList from "../../components/Categories/CategoriesList";
 import {
   Dimensions,
   View,
@@ -14,9 +14,9 @@ import {
 } from "react-native";
 import CarouselImages from "../../components/Categories/CarouselImages";
 
-import Feather from "react-native-vector-icons/Feather";
 const widthScreen = Dimensions.get("window").width;
 const HomeScreen = () => {
+  
   return (
     <View style={styles.container}>
       <View style={styles.container1}>
@@ -60,7 +60,7 @@ const HomeScreen = () => {
 
       <View style={styles.container3}>
         <Layout>
-          <TasksList />
+          <CategoriesList />
         </Layout>
       </View>
     </View>
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   container1: {
     alignItems: 'center',
     backgroundColor: 'white',
-    flex: 1,
+    flex: 2,
     justifyContent: 'center',
     alignItems: 'stretch',
 
@@ -93,9 +93,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   }, container3: {
-    alignItems: 'center',
+    alignItems: 'stretch',
     backgroundColor: 'white',
-    flex: 1,
+    flex: 2,
     justifyContent: 'center',
   },
 
@@ -104,3 +104,5 @@ const styles = StyleSheet.create({
   }
 
 })
+
+

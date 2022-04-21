@@ -1,127 +1,101 @@
-import React from "react";
-import ServicesList from "../../components/Services/ServicesList";
-import { Dimensions, View, Text, StyleSheet, ScrollView, TouchableOpacity, ImageBackground, TextInput } from 'react-native';
-import CarouselImages from '../../components/Services/CarouselImages';
+import React, { useState, useEffect } from "react";
+import {  RefreshControl, View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  FlatList,
+  TextInput, } from "react-native";
+import ServicesItem from '../../components/Services/ServicesItem'
+import { getServices } from '../../api'
 
-import Feather from 'react-native-vector-icons/Feather';
-const widthScreen = Dimensions.get("window").width
 const ServicesScreen = () => {
+
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const [Services, setServices] = useState([])
+  const [search, setSearch] = useState("");
+
+  const loadServices = async () => {
+    const data = await getServices()
+    setServices(data.data)
+  };
+  useEffect(() => {
+    loadServices();
+  }, []);
+
+  const renderItem = ({ item }) => {
+    return <ServicesItem Service={item} />
+
+  };
+  const onRefresh = React.useCallback(async () => {
+
+    setRefreshing(true);
+    await loadServices();
+    setRefreshing(false);
+  })
   return (
-    <View style={styles.container}>
-      <View style={styles.container1}>
-        {/* ////////////////////////////////////////////////////////////////////////////////////*/}
-        <ScrollView style={{ padding: 20, }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginBottom: 20,
-              alignItems: 'stretch',
-
-            }}>
-            <Text style={{ fontSize: 18}}>
-              Hello User
-            </Text>
-            <TouchableOpacity onPress={() => navigation.openDrawer()}>
-              <ImageBackground
-                source={require('../../assets/images/user-profile.jpg')}
-                style={{ width: 35, height: 35 }}
-                imageStyle={{ borderRadius: 25 }}
-              />
-            </TouchableOpacity>
-          </View>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              borderColor: '#C6C6C6',
-              borderWidth: 1,
-              borderRadius: 8,
-              paddingHorizontal: 10,
-              paddingVertical: 8,
-            }}>
-            <Feather
-              name="search"
-              size={20}
-              color="#C6C6C6"
-              style={{ marginRight: 10 }}
-            />
-            <TextInput placeholder="Search" />
-          </View>
-
-          <View
-            style={{
-              marginVertical: 15,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}>
-            <Text style={{ fontSize: 18}}>
-              Services
-            </Text>
-
-          </View>
 
 
+<View style={styles.container}>
+      <StatusBar backgroundColor="#141414" />
 
-          <CarouselImages />
-
-
-
-
-        </ScrollView>
-
-        {/* ////////////////////////////////////////////////////////////////////////////////////*/}
+      <View style={styles.header}>
+        <Text style={styles.title}>Comserp</Text>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search a Service"
+          placeholderTextColor="#000000"
+          onChangeText={(text) => text && setSearch(text)}
+        />
       </View>
+    
+    <FlatList
+      style={{ width: '100%' }}
+      data={Services.filter(
+        (Service) =>
+        Service.service_n.toLowerCase().includes(search)
+      )}
+      keyExtractor={(item) => item.service_id + ""}
+      renderItem={renderItem}
 
-      <View style={styles.container3}>
-
-
-        <ServicesList />
-      </View>
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          colors={["#78e08f"]}
+          onRefresh={onRefresh}
+          progressBackgroundColor="#000"
+        />
+      }
+    />
     </View>
-  )
-}
-
-
-
-
-
+  );
+};
 export default ServicesScreen;
-
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'stretch',
-    backgroundColor: 'red',
+    backgroundColor: "#FFFFFF",
     flex: 1,
-    flexDirection: 'column',
-
-    // justifyContent: 'center',
+    alignItems: "center",
   },
-  container1: {
-    alignItems: 'center',
-    backgroundColor: 'white',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'stretch',
-
-
-
+  header: {
+    flexDirection: "row",
+    width: "90%",
+    justifyContent: "space-between",
+    marginBottom: 20,
   },
-  container2: {
-    alignItems: 'center',
-    backgroundColor: 'white',
-    flex: 1,
-    justifyContent: 'center',
-  }, container3: {
-    alignItems: 'center',
-    backgroundColor: 'white',
-    flex: 1,
-    justifyContent: 'center',
+  title: {
+    fontSize: 40,
+    color: "#000000",
+    marginTop: 10,
   },
-
-  viewBody: {
-    flex: 1,
-  }
-
-})
-
+  list: {
+    width: "90%",
+  },
+  searchInput: {
+    color: "#000000",
+    borderBottomColor: "#000000",
+    borderBottomWidth: 1,
+    width: "50%",
+    textAlign: "center",
+  },
+});

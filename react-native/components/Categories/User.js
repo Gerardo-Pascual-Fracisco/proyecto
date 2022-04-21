@@ -1,165 +1,178 @@
-import {View, SafeAreaView, Image, Text, StyleSheet,FlatList,RefreshControl} from 'react-native';
-import React, {useEffect, useState} from "react";
+import { View, SafeAreaView, Image, Text, StyleSheet, FlatList, RefreshControl } from 'react-native';
+import React, { useEffect, useState } from "react";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import colors from '../../components/colors';
 import axios from 'axios'
 
-const User = ({navigation, route}) => {
-  const {name,id} = route.params
+const User = ({ navigation, route }) => {
+  const { name, id } = route.params
+  const USER = `http://192.168.1.126:8000/api/user/${id}`
 
 
 
-  
   const [refreshing, setRefreshing] = React.useState(false);
 
-    const [tasks, setTasks] = useState([])
+  const [user, setuser] = useState([])
 
-    const loadTasks = async () => {
+  const loaduser = async () => {
 
-      axios
-      .get(`http://192.168.1.126:8000/api/user/${id}`)
+    axios
+      .get(USER)
       .then(res => {
-      setTasks (res.data.usuario)
+        setuser(res.data.usuario)
       })
       .catch(err => {
-      console.log(err)
+        console.log(err)
       })
-    };
-  
-    
-    useEffect(() => {
-      navigation.setOptions({ title: name })
+  };
 
-      axios
-      .get(`http://192.168.1.126:8000/api/user/${id}`)
+
+  useEffect(() => {
+    navigation.setOptions({ title: name })
+
+    axios
+      .get(USER)
       .then(res => {
-      setTasks (res.data.usuario)
+        setuser(res.data.usuario)
       })
       .catch(err => {
-      console.log(err)
+        console.log(err)
       })
-      }, [])
+  }, [])
 
-      const renderItem = ({ item }) => {
+  const renderItem = ({ item }) => {
 
-  return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: colors.white,
-      }}>
-      <View style={style.header}>
-        <Icon name="shopping-cart" size={28} />
-      </View>
-      <View style={style.imageContainer}>
-      <Image source={{ uri:item.foto }}style={{resizeMode: 'contain', flex: 1}} />
-      </View>
-      <View style={style.detailsContainer}>
-        <View
-          style={{
-            marginLeft: 20,
-            flexDirection: 'row',
-            alignItems: 'flex-end',
-          }}>
-          <View style={style.line} />
-          <Text style={{fontSize: 18, fontWeight: 'bold'}}>Best choice</Text>
+    return (
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: colors.white,
+        }}>
+        <View style={style.header}>
+          <Icon name="shopping-cart" size={28} />
         </View>
+
         <View
           style={{
-            marginLeft: 20,
-            marginTop: 20,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            height: 200,
             alignItems: 'center',
           }}>
-          <Text style={{fontSize: 22, fontWeight: 'bold'}}>{item.name}</Text>
-          <View style={style.priceTag}>
-            <Text
-              style={{
-                marginLeft: 15,
-                color: colors.white,
-                fontWeight: 'bold',
-                fontSize: 16,
-              }}>
-              ${item.name}
-            </Text>
-          </View>
-        </View>
-        <View style={{paddingHorizontal: 20, marginTop: 10}}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>About</Text>
-          <Text
+          <Image
+            source={{ uri: item.foto }}
+
             style={{
-              color: 'grey',
-              fontSize: 16,
-              lineHeight: 22,
-              marginTop: 10,
-            }}>
-            {item.address}
-          </Text>
+              flex: 1, width: '50%',
+              height: '100%'
+            }}
+          />
+        </View>
+        <View style={style.detailsContainer}>
           <View
             style={{
+              marginLeft: 20,
+              flexDirection: 'row',
+              alignItems: 'flex-end',
+            }}>
+            <View style={style.line} />
+            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Best choice</Text>
+          </View>
+          <View
+            style={{
+              marginLeft: 20,
               marginTop: 20,
               flexDirection: 'row',
               justifyContent: 'space-between',
+              alignItems: 'center',
             }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <View style={style.borderBtn}>
-                <Text style={style.borderBtnText}>-</Text>
-              </View>
+            <Text style={{ fontSize: 22, fontWeight: 'bold' }}>{item.name}</Text>
+            <View style={style.priceTag}>
               <Text
                 style={{
-                  fontSize: 20,
-                  marginHorizontal: 10,
+                  marginLeft: 15,
+                  color: colors.white,
                   fontWeight: 'bold',
+                  fontSize: 16,
                 }}>
-                1
-              </Text>
-              <View style={style.borderBtn}>
-                <Text style={style.borderBtnText}>+</Text>
-              </View>
-            </View>
-
-            <View style={style.buyBtn}>
-              <Text
-                style={{color: colors.white, fontSize: 18, fontWeight: 'bold'}}>
-                Contratar
+                ${item.name}
               </Text>
             </View>
           </View>
+          <View style={{ paddingHorizontal: 20, marginTop: 10 }}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>About</Text>
+            <Text
+              style={{
+                color: 'grey',
+                fontSize: 16,
+                lineHeight: 22,
+                marginTop: 10,
+              }}>
+              {item.address}
+            </Text>
+            <View
+              style={{
+                marginTop: 20,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <View style={style.borderBtn}>
+                  <Text style={style.borderBtnText}>-</Text>
+                </View>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    marginHorizontal: 10,
+                    fontWeight: 'bold',
+                  }}>
+                  1
+                </Text>
+                <View style={style.borderBtn}>
+                  <Text style={style.borderBtnText}>+</Text>
+                </View>
+              </View>
+
+              <View style={style.buyBtn}>
+                <Text
+                  style={{ color: colors.white, fontSize: 18, fontWeight: 'bold' }}>
+                  Contratar
+                </Text>
+              </View>
+            </View>
+          </View>
         </View>
-      </View>
-    </SafeAreaView>
-  );  };
+      </SafeAreaView>
+    );
+  };
 
-    
-const onRefresh = React.useCallback(async () => {
 
- setRefreshing(true);
- await loadTasks () ;
- setRefreshing(false);
-})
-return (
- <FlatList
- style={{ width: '100%'}}
-   data={tasks}
-   keyExtractor={(item) => item.user_id + ""}
-   renderItem={renderItem}
+  const onRefresh = React.useCallback(async () => {
 
-   refreshControl={
-     <RefreshControl
-       refreshing={refreshing}
-       colors={["#78e08f"]}
-       onRefresh={onRefresh}
-       progressBackgroundColor="#000"
- />
-}
-/>
+    setRefreshing(true);
+    await loaduser();
+    setRefreshing(false);
+  })
+  return (
+    <FlatList
+      style={{ width: '100%' }}
+      data={user}
+      keyExtractor={(item) => item.user_id + ""}
+      renderItem={renderItem}
 
-);
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          colors={["#78e08f"]}
+          onRefresh={onRefresh}
+          progressBackgroundColor="#000"
+        />
+      }
+    />
+
+  );
 };
 const style = StyleSheet.create({
   header: {
@@ -173,6 +186,9 @@ const style = StyleSheet.create({
     marginTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',
+    height: '100%'
+
   },
   detailsContainer: {
     flex: 0.55,
@@ -199,7 +215,7 @@ const style = StyleSheet.create({
     width: 60,
     height: 40,
   },
-  borderBtnText: {fontWeight: 'bold', fontSize: 28},
+  borderBtnText: { fontWeight: 'bold', fontSize: 28 },
   buyBtn: {
     width: 130,
     height: 50,

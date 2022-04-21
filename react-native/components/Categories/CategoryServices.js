@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   FlatList,
   Image,
-  Dimensions,RefreshControl
+  Dimensions, RefreshControl
 } from 'react-native';
-import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import colors from '../../components/colors';
 import axios from 'axios'
@@ -15,53 +15,53 @@ import { useNavigation } from "@react-navigation/native";
 
 const width = Dimensions.get('window').width / 2 - 30;
 
-const CategoryServices = ({route}) => {
-  const {name,id} = route.params
+const CategoryServices = ({ route }) => {
+  const { name, id } = route.params
   const navigation = useNavigation();
+  const SERVICES = `http://192.168.1.126:8000/api/showById/${id}`
 
 
-  
-    const [refreshing, setRefreshing] = React.useState(false);
+  const [refreshing, setRefreshing] = React.useState(false);
 
-      const [tasks, setTasks] = useState([])
+  const [services, setservices] = useState([])
 
-      const loadTasks = async () => {
-  
-        axios
-        .get(`http://192.168.1.126:8000/api/showById/${id}`)
-        .then(res => {
-        setTasks (res.data.services)
-        })
-        .catch(err => {
+  const loadservices = async () => {
+
+    axios
+      .get(SERVICES)
+      .then(res => {
+        setservices(res.data.services)
+      })
+      .catch(err => {
         console.log(err)
-        })
-      };
-    
-      
-      useEffect(() => {
-        navigation.setOptions({ title: name })
+      })
+  };
 
-        axios
-        .get(`http://192.168.1.126:8000/api/showById/${id}`)
-        .then(res => {
-        setTasks (res.data.services)
+
+  useEffect(() => {
+    navigation.setOptions({ title: name })
+
+    axios
+      .get(SERVICES)
+      .then(res => {
+        setservices(res.data.services)
         console.log(res)
 
-        })
-        .catch(err => {
+      })
+      .catch(err => {
         console.log(err)
-        })
-        }
-        , [])
+      })
+  }
+    , [])
 
 
-        const renderItem = ({ item }) => {
-          return (
+  const renderItem = ({ item }) => {
+    return (
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => navigation.navigate("CategoryU", { id:item.service_id,name:item.service_n })}>
+        onPress={() => navigation.navigate("CategoryU", { id: item.service_id, name: item.service_n })}>
         <View style={style.card}>
-          <View style={{alignItems: 'flex-end'}}>
+          <View style={{ alignItems: 'flex-end' }}>
             <View
               style={{
                 width: 30,
@@ -87,13 +87,16 @@ const CategoryServices = ({route}) => {
               alignItems: 'center',
             }}>
             <Image
-              source={{uri:item.foto}}
+              source={{ uri: item.foto }}
 
-              style={{flex: 1, resizeMode: 'contain'}}
+              style={{
+                flex: 1, width: '100%',
+                height: '100%'
+              }}
             />
           </View>
 
-          <Text style={{fontWeight: 'bold', fontSize: 17, marginTop: 10}}>
+          <Text style={{ fontWeight: 'bold', fontSize: 17, marginTop: 10 }}>
             {item.service_n}
           </Text>
           <View
@@ -102,7 +105,7 @@ const CategoryServices = ({route}) => {
               justifyContent: 'space-between',
               marginTop: 5,
             }}>
-            <Text style={{fontSize: 19, fontWeight: 'bold'}}>
+            <Text style={{ fontSize: 19, fontWeight: 'bold' }}>
               ${item.service_id}
             </Text>
             <View
@@ -115,7 +118,7 @@ const CategoryServices = ({route}) => {
                 alignItems: 'center',
               }}>
               <Text
-                style={{fontSize: 22, color: colors.white, fontWeight: 'bold'}}>
+                style={{ fontSize: 22, color: colors.white, fontWeight: 'bold' }}>
                 +
               </Text>
             </View>
@@ -129,19 +132,19 @@ const CategoryServices = ({route}) => {
   const onRefresh = React.useCallback(async () => {
 
     setRefreshing(true);
-    await loadTasks () ;
+    await loadservices();
     setRefreshing(false);
   })
   return (
     <FlatList
-    columnWrapperStyle={{justifyContent: 'space-between'}}
-    showsVerticalScrollIndicator={false}
-    contentContainerStyle={{
-      marginTop: 10,
-      paddingBottom: 50,
-    }}
-    numColumns={2}
-      data={tasks}
+      columnWrapperStyle={{ justifyContent: 'space-between' }}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{
+        marginTop: 10,
+        paddingBottom: 50,
+      }}
+      numColumns={2}
+      data={services}
       keyExtractor={(item) => item.service_id + ""}
       renderItem={renderItem}
 
@@ -151,13 +154,13 @@ const CategoryServices = ({route}) => {
           colors={["#78e08f"]}
           onRefresh={onRefresh}
           progressBackgroundColor="#000"
+        />
+      }
     />
-}
-/>
 
-);
+  );
 };
-    
+
 
 const style = StyleSheet.create({
   categoryContainer: {
@@ -165,9 +168,9 @@ const style = StyleSheet.create({
     marginTop: 30,
     marginBottom: 20,
     justifyContent: 'space-between',
-    
+
   },
-  categoryText: {fontSize: 16, color: 'grey', fontWeight: 'bold'},
+  categoryText: { fontSize: 16, color: 'grey', fontWeight: 'bold' },
   categoryTextSelected: {
     color: colors.green,
     paddingBottom: 5,
@@ -183,13 +186,13 @@ const style = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 20,
     padding: 10,
-   
+
   },
   header: {
     marginTop: 30,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    
+
   },
   searchContainer: {
     height: 50,
