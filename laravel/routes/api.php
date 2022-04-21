@@ -24,6 +24,8 @@ Route::resource('user','UserController');
 Route::resource('typeuser','TypeUserController');
 Route::get('showById/{id_category}','CategoryController@showById');
 Route::get('showUser/{service_id}','ServiceController@showUser');
+Route::get('showChat/{id_chat}','ChatController@showUser');
+Route::resource('chat','ChatController');
 
 
 Route::group([
