@@ -60,7 +60,7 @@ export function SettingsScreen({ navigation }) {
                                     size={size}
                                 />
                             )}
-                            label="Editar Perfil"
+                            label="Edit Profile"
                             onPress={() => navigation.navigate('EditProfile')}//nombre colocado en la constante SettingsSatckScreen dentro de MainTabScreen
 
                         />
@@ -72,7 +72,7 @@ export function SettingsScreen({ navigation }) {
                                     size={size}
                                 />
                             )}
-                            label="Atencion al cliente"
+                            label="Client Service"
                             onPress={() => navigation.navigate('EditProfileScreen')}
                         />
                         <DrawerItem
@@ -83,7 +83,7 @@ export function SettingsScreen({ navigation }) {
                                     size={size}
                                 />
                             )}
-                            label="Informacion del cliente"
+                            label="Account Information"
                             onPress={() => navigation.navigate('EditProfileScreen')}
                         />
 

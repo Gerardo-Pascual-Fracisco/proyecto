@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Chat;
 use App\User;
-use App\Service;
-use App\serviceUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ApiController;
 
-class UserController extends ApiController
+class ChatController extends Controller
 {
-
     public function index()
     {
-        $user = User::all();
-        return $this->showAll($user); 
+        $chat = Chat::all();
+        return $this->showAll($chat); 
     }
 
     public function create()
@@ -25,20 +23,20 @@ class UserController extends ApiController
 
     public function store(Request $request)
     {
-        $user = new User();
-        $user->name = $request->name;
+        $chat = new Chat();
+        $chat->name = $request->name;
 
-        $user->save();
-        return $this->showOne($user, 201);
+        $chat->save();
+        return $this->showOne($chat, 201);
     }
     
-     public function show($user_id)
+     public function show($id_chat)
     {
-        $users = DB::table('users')
-                ->where('name','=',$user_id)
-                ->orwhere('user_id','=',$user_id)
+        $id_chat = DB::table('chats')
+                ->where('id_chat','=',$id_chat)
+                ->orwhere('id_receiver','=',$id_chat)
                 ->get();
-        return response()->json(['usuario' => $users],200);
+        return response()->json(['mensage' => $id_chat],200);
     }
 
     public function edit($id)
@@ -52,35 +50,38 @@ class UserController extends ApiController
         /**al hacer una modificación debe de ser un dato diferente 
          * por ello ocupamos el metodo only e intersec solo optiene 
          *el nombre y la descripción**/
-        $user = User::findOrfail($id);
-         $user->fill($request->only([
-            'name',
-            'email',
-            'foto',
-            'adrress',
-            'username',
+        $chat = Chat::findOrfail($id);
+         $chat->fill($request->only([
+            'id_receiver',
+            'id_transmitter',
+            'message',
         ]));
        
         /**  el metodo isclean() verifica que la instancia o los datoso no hayan cambio de ser 
          * así retornamos un errors*
         */
        
-        if($user->isClean()){
+        if($chat->isClean()){
             return $this->errorResponse('Debes Especificar almenos un campo diferente', 402);
         }
         /** Si detatmos un cambio en datos procedemos a el metodo save() */
-
-        $user->save();
-        return $this->showOne($user);
+        $chat->save();
+        return $this->showOne($chat);
     }
 
     public function destroy($request)
     {
-        $user = User::destroy($request->id);
-        return $this->showOne($user, 200);
+        $chat = Chat::destroy($request->id);
+        return $this->showOne($chat, 200);
     }
 
-  
-   
+    public function showChat($id_chat){//criterio de busqueda
 
+
+        $consulta = Service::with('chats')->get();
+        return response()->json($consulta[$id_chat-1], 201);
+        
+
+    
+    }
 }

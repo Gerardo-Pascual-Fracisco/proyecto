@@ -8,6 +8,7 @@ use App\Detall;
 use App\User;
 use App\Sale;
 use App\serviceUser;
+use App\Chat;
 class DataSeeder extends Seeder
 {
     public function run()
@@ -19,6 +20,7 @@ class DataSeeder extends Seeder
         factory('App\Detall', 10)->create();
         factory('App\Sale', 10)->create();
         factory('App\serviceUser', 10)->create();
+        factory('App\Chat', 20)->create();
 
     }
 }
